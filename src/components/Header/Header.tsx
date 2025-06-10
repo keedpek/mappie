@@ -7,7 +7,9 @@ const Header: FC = () => {
     a = asdfasdf + eqweroit
     return a
   }
+
   foo(1, 'a')
+
   return (
     <div>
       <img src={svg} />
