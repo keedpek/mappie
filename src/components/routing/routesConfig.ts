@@ -1,13 +1,8 @@
-import { MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/Routes'
+import { MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
 import MainPage from '@/pages/MainPage/MainPage'
 import LoginPage from '@/pages/LoginPage/LoginPage'
 import RegistrationPage from '@/pages/RegistrationPage/RegistrationPage'
-import React from 'react'
-
-interface RouteConfig {
-  path: string
-  component: React.FC
-}
+import RouteConfig from '@/types/routeConfig'
 
 const routes: RouteConfig[] = [
   {
