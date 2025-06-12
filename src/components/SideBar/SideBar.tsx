@@ -7,7 +7,7 @@ import searchbtnOn from '@/assets/searchbtnOn.svg'
 import logo from '@/assets/mappieLogo.svg'
 import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
 import logIn from '@/assets/logIn.svg'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { setActiveTab } from '@/store/slices/navigationSlice'
 
 const SideBar: FC = () => {
