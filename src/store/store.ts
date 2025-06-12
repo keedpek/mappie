@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userSlice from './slices/userSlice'
+import navigationSlice from './slices/navigationSlice'
 
 const rootReduser = combineReducers({
   user: userSlice,
+  navigation: navigationSlice,
 })
 
 export const store = configureStore({
