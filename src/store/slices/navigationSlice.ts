@@ -1,4 +1,4 @@
-import { NavTab } from '@/types/navTab'
+import { NavTab } from '@/types/NavTab'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface NavigationState {
