@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 100vh;
+  padding: 20px;
+  padding-bottom: 0;
+  background-color: #fff;
+  position: absolute;
+  margin-left: 100px;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+  flex-grow: 0;
+}
+
+.close {
+  transform: translateX(-100%);
+  flex-grow: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.closeBtn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: calc(50% - 40px);
+  right: -45px;
+  width: 45px;
+  height: 80px;
+  border: none;
+  background-color: #fff;
+  border-radius: 0 10px 10px 0;
+}
+
+.closeBtn::before,
+.closeBtn::after {
+  content: '';
+  background-color: #fff;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  rotate: 45deg;
+  z-index: -1;
+}
+
+.closeBtn::before {
+  top: -5px;
+  left: -10px;
+}
+
+.closeBtn::after {
+  bottom: -5px;
+  left: -10px;
+}

@@ -1,12 +1,14 @@
+import MapComponent from '@/components/MapComponent/MapComponent'
 import SideBar from '@/components/SideBar/SideBar'
+import SlidePannel from '@/components/SlidePannel/SlidePannel'
 import { FC } from 'react'
 
 const MainPage: FC = () => {
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', width: '100%' }}>
       <SideBar />
-      <div>slidebar</div>
-      <div>mapplaceholder</div>
+      <SlidePannel />
+      <MapComponent />
     </div>
   )
 }
