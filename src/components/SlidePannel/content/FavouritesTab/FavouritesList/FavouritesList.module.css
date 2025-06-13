@@ -1,0 +1,26 @@
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.favouritesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list {
+  display: flex;
+  height: calc(100vh - 170px);
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  overflow-y: scroll;
+  scrollbar-width: 0;
+}
+
+.list::-webkit-scrollbar {
+  width: 0;
+}

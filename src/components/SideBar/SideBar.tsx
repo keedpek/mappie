@@ -7,13 +7,13 @@ import searchbtnOn from '@/assets/searchbtnOn.svg'
 import logo from '@/assets/mappieLogo.svg'
 import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
 import logIn from '@/assets/logIn.svg'
-import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
-import { setActiveTab } from '@/store/slices/navigationSlice'
+import { useAppSelector } from '@/utils/hooks/reduxHooks'
+import { useTabToggle } from '@/utils/hooks/useTabToggle'
 
 const SideBar: FC = () => {
   const isAuth = useAppSelector((store) => store.user.isAuth)
   const activeTab = useAppSelector((store) => store.navigation.activeTab)
-  const dispatch = useAppDispatch()
+  const tabToggle = useTabToggle()
 
   return (
     <aside className={style.container}>
@@ -26,11 +26,7 @@ const SideBar: FC = () => {
           <li>
             <button
               className={`${style.btn} ${style.search} ${activeTab === 'search' && style.active}`}
-              onClick={() => {
-                void (activeTab === 'search'
-                  ? dispatch(setActiveTab(''))
-                  : dispatch(setActiveTab('search')))
-              }}
+              onClick={() => tabToggle('search')}
             >
               <img src={activeTab === 'search' ? searchbtnOn : searchbtnOff} />
             </button>
@@ -38,11 +34,7 @@ const SideBar: FC = () => {
           <li>
             <button
               className={`${style.btn} ${style.favourites} ${activeTab === 'favourites' && style.active}`}
-              onClick={() => {
-                void (activeTab === 'favourites'
-                  ? dispatch(setActiveTab(''))
-                  : dispatch(setActiveTab('favourites')))
-              }}
+              onClick={() => tabToggle('favourites')}
             >
               <img
                 src={activeTab === 'favourites' ? bookmarkOn : bookmarkOff}
