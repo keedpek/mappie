@@ -15,7 +15,7 @@ const FavouritesTab: FC = () => {
   useEffect(() => {
     const stored = getFromStorage()
     dispatch(setFavouritePlaces(stored))
-  }, [])
+  }, [dispatch])
 
   if (selectedPlace) {
     return <SelectedPlaceCard placeInfo={selectedPlace} />
