@@ -1,6 +1,6 @@
-import MapComponent from '@/components/MapComponent/MapComponent'
-import SideBar from '@/components/SideBar/SideBar'
-import SlidePannel from '@/components/SlidePannel/SlidePannel'
+import MapComponent from '@/components/layout/MapComponent/MapComponent'
+import SideBar from '@/components/layout/SideBar/SideBar'
+import SlidePannel from '@/components/layout/SlidePannel/SlidePannel'
 import { FC } from 'react'
 
 const MainPage: FC = () => {

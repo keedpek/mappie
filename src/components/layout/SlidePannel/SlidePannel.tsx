@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import style from './SlidePannel.module.css'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
-import SearchTab from './content/SearchTab/SearchTab'
-import FavouritesTab from './content/FavouritesTab/FavouritesTab'
+import SearchTab from './SearchTab/SearchTab'
+import FavouritesTab from './FavouritesTab/FavouritesTab'
 import { setActiveTab, setPannelState } from '@/store/slices/navigationSlice'
 import arrow from '@/assets/pannelLeftArrow.svg'
 

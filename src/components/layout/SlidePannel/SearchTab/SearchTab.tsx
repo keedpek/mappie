@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react'
 import style from './SearchTab.module.css'
-import SearchBar from '@/components/SearchBar/SearchBar'
+import SearchBar from '@/components/layout/SlidePannel/SearchBar/SearchBar'
 import useInput from '@/utils/hooks/useInput'
 import { filters, Filter } from '@/constants/filters'
 import magGlass from '@/assets/searchbtnOff.svg'
