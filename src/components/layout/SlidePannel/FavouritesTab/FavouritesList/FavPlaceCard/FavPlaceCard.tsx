@@ -4,7 +4,7 @@ import bookmark from '@/assets/bookmarkOn.svg'
 import arrow from '@/assets/pannelLeftArrow.svg'
 import { descriptionClipping } from '@/utils/descriptionClipping'
 import PlaceObj from '@/types/PlaceObj'
-import { useAppDispatch } from '@/utils/hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { setSelectedPlace } from '@/store/slices/navigationSlice'
 import { removeFromFavourites } from '@/store/slices/favouritesSlice'
 import { removePlaceFromStorage } from '@/utils/localStorageHandler'
@@ -15,6 +15,7 @@ interface FavPlaceCardProps {
 
 const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
   const dispatch = useAppDispatch()
+  const user = useAppSelector((store) => store.user.email)
 
   return (
     <div className={style.container}>
@@ -31,7 +32,7 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
         <button
           className={`${style.btn}`}
           onClick={() => {
-            removePlaceFromStorage(place)
+            removePlaceFromStorage(place, user)
             dispatch(removeFromFavourites(place))
           }}
         >

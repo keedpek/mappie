@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import style from './SelectedPlaceCard.module.css'
 import PlaceObj from '@/types/PlaceObj'
 import savedBookmark from '@/assets/bookmarkSaved.svg'
@@ -17,6 +17,7 @@ import {
   addFavouritePlaceToStorage,
   removePlaceFromStorage,
 } from '@/utils/localStorageHandler'
+import UnauthorizedPopup from '@/components/layout/UnauthorizedPopup/UnauthorizedPopup'
 
 interface SelectedPlaceCardProps {
   placeInfo: PlaceObj
@@ -25,14 +26,16 @@ interface SelectedPlaceCardProps {
 const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
   const favPlaces = useAppSelector((store) => store.favourites.favouritePlaces)
   const isFavourite = favPlaces.includes(placeInfo)
+  const user = useAppSelector((store) => store.user.email)
   const dispatch = useAppDispatch()
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleSaveClick = () => {
     if (isFavourite) {
-      removePlaceFromStorage(placeInfo)
+      removePlaceFromStorage(placeInfo, user)
       dispatch(removeFromFavourites(placeInfo))
-    } else {
-      addFavouritePlaceToStorage(placeInfo)
+    } else if (user) {
+      addFavouritePlaceToStorage(placeInfo, user)
       dispatch(addFavouritePlace(placeInfo))
     }
   }
@@ -61,7 +64,13 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
         <div className={style.btnContainer}>
           <button
             className={`${style.btn} ${isFavourite ? style.saved : style.unsaved}`}
-            onClick={handleSaveClick}
+            onClick={
+              user
+                ? handleSaveClick
+                : () => {
+                    setIsModalOpen(true)
+                  }
+            }
           >
             <img src={isFavourite ? savedBookmark : bookmark} />
             <span>{isFavourite ? 'Сохранено' : 'Сохранить'}</span>
@@ -72,6 +81,13 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
           </button>
         </div>
       </div>
+      {isModalOpen && (
+        <UnauthorizedPopup
+          onClose={() => {
+            setIsModalOpen(false)
+          }}
+        />
+      )}
     </>
   )
 }

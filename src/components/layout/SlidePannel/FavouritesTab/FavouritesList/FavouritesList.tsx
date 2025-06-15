@@ -18,11 +18,15 @@ const FavouritesList: FC<FavouritesListProps> = ({ places }) => {
       <div className={style.favouritesContainer}>
         <h2>Избранное:</h2>
         <ul className={style.list}>
-          {places.map((place) => (
-            <li key={place.title}>
-              <FavPlaceCard place={place} />
-            </li>
-          ))}
+          {places.length ? (
+            places.map((place) => (
+              <li key={place.title}>
+                <FavPlaceCard place={place} />
+              </li>
+            ))
+          ) : (
+            <p>У вас нет избранных мест</p>
+          )}
         </ul>
       </div>
     </div>

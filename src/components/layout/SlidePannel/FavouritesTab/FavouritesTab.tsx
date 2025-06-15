@@ -2,8 +2,9 @@ import { FC, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import FavouritesList from './FavouritesList/FavouritesList'
 import SelectedPlaceCard from './SelectedPlaceCard/SelectedPlaceCard'
-import { getFromStorage } from '@/utils/localStorageHandler'
+import { getUserStoredFavourites } from '@/utils/localStorageHandler'
 import { setFavouritePlaces } from '@/store/slices/favouritesSlice'
+import PlaceObj from '@/types/PlaceObj'
 
 const FavouritesTab: FC = () => {
   const selectedPlace = useAppSelector(
@@ -11,11 +12,15 @@ const FavouritesTab: FC = () => {
   )
   const favPlaces = useAppSelector((store) => store.favourites.favouritePlaces)
   const dispatch = useAppDispatch()
+  const user = useAppSelector((store) => store.user.email)
 
   useEffect(() => {
-    const stored = getFromStorage()
+    let stored: PlaceObj[] = []
+    if (user) {
+      stored = getUserStoredFavourites(user)
+    }
     dispatch(setFavouritePlaces(stored))
-  }, [dispatch])
+  }, [dispatch, user])
 
   if (selectedPlace) {
     return <SelectedPlaceCard placeInfo={selectedPlace} />
