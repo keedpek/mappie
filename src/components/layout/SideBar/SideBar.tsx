@@ -9,11 +9,14 @@ import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
 import logIn from '@/assets/logIn.svg'
 import { useAppSelector } from '@/utils/hooks/reduxHooks'
 import { useTabToggle } from '@/utils/hooks/useTabToggle'
+import { LOGIN_ROUTE } from '@/constants/routes'
+import { useNavigate } from 'react-router-dom'
 
 const SideBar: FC = () => {
   const isAuth = useAppSelector((store) => store.user.isAuth)
   const activeTab = useAppSelector((store) => store.navigation.activeTab)
   const tabToggle = useTabToggle()
+  const navigate = useNavigate()
 
   return (
     <aside className={style.container}>
@@ -49,7 +52,12 @@ const SideBar: FC = () => {
           <img className={style.avatar} src={avatarPlaceholder} />
         </div>
       ) : (
-        <button className={style.loginBtn}>
+        <button
+          className={style.loginBtn}
+          onClick={() => {
+            navigate(LOGIN_ROUTE)
+          }}
+        >
           <img src={logIn} />
         </button>
       )}
