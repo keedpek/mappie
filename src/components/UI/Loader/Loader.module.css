@@ -1,0 +1,42 @@
+.loader {
+  border-style: solid;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.s {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.m {
+  width: 50px;
+  height: 50px;
+  border-width: 5px;
+}
+
+.l {
+  width: 100px;
+  height: 100px;
+  border-width: 7px;
+}
+
+.white {
+  border-color: #fff;
+  border-top-color: #5e7bc7;
+}
+
+.purple {
+  border-color: #5e7bc7;
+  border-top-color: #fff;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
