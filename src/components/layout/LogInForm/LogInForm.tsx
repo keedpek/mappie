@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import style from './LogInForm.module.css'
 import { useForm } from 'react-hook-form'
 import { object, string } from 'yup'
@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { LogInFormData } from '@/types/authentication'
 import { REGISTRATION_ROUTE } from '@/constants/routes'
 import google from '@/assets/google-icon-logo.svg'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const logInSchema = object({
   email: string()
@@ -19,23 +21,44 @@ const LogInForm: FC = () => {
     mode: 'onChange',
     resolver: yupResolver(logInSchema),
   })
-
   const { errors } = formState
+  const [authError, setAuthError] = useState('')
+
+  const handleLogin = async (data: LogInFormData) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password)
+    } catch (error) {
+      setAuthError(error.message)
+    }
+  }
 
   return (
     <div className={style.container}>
       <h1>Вход:</h1>
       <form
         className={style.form}
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) => handleLogin(data))}
       >
-        <input className={style.input} type="email" {...register('email')} />
-        <input
-          className={style.input}
-          type="password"
-          {...register('password')}
-        />
+        <div className={style.formField}>
+          <input
+            className={style.input}
+            type="email"
+            placeholder="Введите email:"
+            {...register('email')}
+          />
+          <p className={style.error}>{errors.email?.message}</p>
+        </div>
+        <div className={style.formField}>
+          <input
+            className={style.input}
+            type="password"
+            placeholder="Введите пароль:"
+            {...register('password')}
+          />
+          <p className={style.error}>{errors.password?.message}</p>
+        </div>
         <button className={style.submitBtn}>Войти</button>
+        {authError && <p className={style.error}>Неверные данные</p>}
       </form>
       <button className={style.googleBtn}>
         <img src={google} />

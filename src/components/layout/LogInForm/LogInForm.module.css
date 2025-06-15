@@ -11,9 +11,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
   align-items: center;
+}
+
+.formField {
+  width: 100%;
 }
 
 .input {
@@ -22,6 +26,12 @@
   border: 3px solid #c4c4c4;
   border-radius: 10px;
   outline: none;
+  font-size: 18px;
+}
+
+.error {
+  color: #ff6347;
+  font-size: 14px;
 }
 
 .submitBtn {
