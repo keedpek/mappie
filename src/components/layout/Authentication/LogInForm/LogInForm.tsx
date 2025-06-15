@@ -8,6 +8,9 @@ import { REGISTRATION_ROUTE } from '@/constants/routes'
 import google from '@/assets/google-icon-logo.svg'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebase'
+import { useDispatch } from 'react-redux'
+import { setEmail, setIsAuth } from '@/store/slices/userSlice'
+import Loader from '@/components/UI/Loader/Loader'
 
 const logInSchema = object({
   email: string()
@@ -22,13 +25,20 @@ const LogInForm: FC = () => {
     resolver: yupResolver(logInSchema),
   })
   const { errors } = formState
-  const [authError, setAuthError] = useState('')
+  const [authError, setAuthError] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const dispatch = useDispatch()
 
   const handleLogin = async (data: LogInFormData) => {
     try {
+      setIsLoading(true)
       await signInWithEmailAndPassword(auth, data.email, data.password)
+      dispatch(setIsAuth(true))
+      dispatch(setEmail(data.email))
     } catch (error) {
       setAuthError(error.message)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -57,7 +67,9 @@ const LogInForm: FC = () => {
           />
           <p className={style.error}>{errors.password?.message}</p>
         </div>
-        <button className={style.submitBtn}>Войти</button>
+        <button className={style.submitBtn}>
+          {isLoading ? <Loader color="white" /> : 'Войти'}
+        </button>
         {authError && <p className={style.error}>Неверные данные</p>}
       </form>
       <button className={style.googleBtn}>
