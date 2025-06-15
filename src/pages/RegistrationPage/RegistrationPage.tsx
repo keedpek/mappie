@@ -1,7 +1,8 @@
+import RegistrationForm from '@/components/layout/Authentication/RegistrationForm/RegistrationForm'
 import { FC } from 'react'
 
 const RegistrationPage: FC = () => {
-  return <div>regPage</div>
+  return <RegistrationForm />
 }
 
 export default RegistrationPage
