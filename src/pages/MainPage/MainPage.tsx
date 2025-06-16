@@ -6,9 +6,7 @@ import { FC } from 'react'
 
 const MainPage: FC = () => {
   return (
-    <YMaps
-      query={{ apikey: '33e83ca1-bbd8-4cd5-827b-658750280dc4', lang: 'ru_RU' }}
-    >
+    <YMaps query={{ apikey: import.meta.env.VITE_YMAP_API_KEY, lang: 'ru_RU' }}>
       <div style={{ display: 'flex', width: '100%' }}>
         <SideBar />
         <SlidePannel />
