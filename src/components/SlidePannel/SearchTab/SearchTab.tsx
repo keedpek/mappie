@@ -1,26 +1,22 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import style from './SearchTab.module.css'
 import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
 import useInput from '@/utils/hooks/useInput'
-import { filters, Filter } from '@/constants/filters'
+import Filter from '@/types/Filter'
+import { filters } from '@/constants/filters'
 import { searchbtnOff } from '@/constants/icons'
 
 const SearchTab: FC = () => {
   const searchedPlace = useInput('')
   const searchRadius = useInput('')
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
-  const inputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({})
 
-  const handleClick = (filter: Filter) => {
-    const input = inputRefs.current[filter.id]
-    if (!input) return
-
-    input.checked = !input.checked
-    const newSelected = input.checked
-      ? [...selectedFilters, filter.id]
-      : selectedFilters.filter((f) => f !== filter.id)
-
-    setSelectedFilters(newSelected)
+  const handleClick = (filter: Filter) => () => {
+    setSelectedFilters((prev) =>
+      prev.includes(filter.id)
+        ? prev.filter((f) => f !== filter.id)
+        : [...prev, filter.id]
+    )
   }
 
   const handleSearch = () => {
@@ -33,26 +29,14 @@ const SearchTab: FC = () => {
       <div className={style.filters}>
         <h2>Искать:</h2>
         <ul className={style.filterContainer}>
-          {filters.map((filter, index) => {
+          {filters.map((filter) => {
             const isSelected = selectedFilters.includes(filter.id)
             return (
               <li
-                key={index}
+                key={filter.id}
                 className={`${style.filter} ${isSelected && style.selected}`}
-                onClick={() => {
-                  handleClick(filter)
-                }}
+                onClick={handleClick(filter)}
               >
-                <input
-                  className={style.checkbox}
-                  type="checkbox"
-                  id={filter.title}
-                  ref={(el) => {
-                    inputRefs.current[filter.id] = el
-                  }}
-                  checked={isSelected}
-                  onChange={() => handleClick(filter)}
-                />
                 <img className={style.icon} src={filter.icon} />
                 <h3>{filter.title}</h3>
               </li>
@@ -65,8 +49,8 @@ const SearchTab: FC = () => {
         <div className={style.radiusContainer}>
           <input
             className={style.radiusInput}
-            {...searchRadius}
             type="number"
+            {...searchRadius}
           />
           <span>км</span>
         </div>

@@ -20,6 +20,18 @@ const SideBar: FC = () => {
   const tabToggle = useTabToggle()
   const navigate = useNavigate()
 
+  const handleLoginClick = () => {
+    navigate(LOGIN_ROUTE)
+  }
+
+  const handleSearchClick = () => {
+    tabToggle('search')
+  }
+
+  const handleFavouritesClick = () => {
+    tabToggle('favourites')
+  }
+
   return (
     <aside className={style.container}>
       <div className={style.logoContainer}>
@@ -31,7 +43,7 @@ const SideBar: FC = () => {
           <li>
             <button
               className={`${style.btn} ${style.search} ${activeTab === 'search' && style.active}`}
-              onClick={() => tabToggle('search')}
+              onClick={handleSearchClick}
             >
               <img src={activeTab === 'search' ? searchbtnOn : searchbtnOff} />
             </button>
@@ -39,7 +51,7 @@ const SideBar: FC = () => {
           <li>
             <button
               className={`${style.btn} ${style.favourites} ${activeTab === 'favourites' && style.active}`}
-              onClick={() => tabToggle('favourites')}
+              onClick={handleFavouritesClick}
             >
               <img
                 src={activeTab === 'favourites' ? bookmarkOn : bookmarkOff}
@@ -54,12 +66,7 @@ const SideBar: FC = () => {
           <img className={style.avatar} src={avatarPlaceholder} />
         </div>
       ) : (
-        <button
-          className={style.loginBtn}
-          onClick={() => {
-            navigate(LOGIN_ROUTE)
-          }}
-        >
+        <button className={style.loginBtn} onClick={handleLoginClick}>
           <img src={logIn} />
         </button>
       )}

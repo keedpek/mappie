@@ -15,12 +15,7 @@ import coffee from '@/assets/filters/coffee.svg'
 import bank from '@/assets/filters/bank.svg'
 import bed from '@/assets/filters/bed.svg'
 import other from '@/assets/filters/other.svg'
-
-export interface Filter {
-  id: string
-  title: string
-  icon: string
-}
+import Filter from '@/types/Filter'
 
 export const filters: Filter[] = [
   {

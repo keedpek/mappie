@@ -40,7 +40,6 @@ const LogInForm: FC = () => {
         data.email,
         data.password
       )
-      console.log(response)
       dispatch(setIsAuth(true))
       dispatch(setEmail(response.user.email))
       navigate(MAIN_ROUTE)

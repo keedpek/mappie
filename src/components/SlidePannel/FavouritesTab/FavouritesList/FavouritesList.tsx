@@ -20,7 +20,7 @@ const FavouritesList: FC<FavouritesListProps> = ({ places }) => {
         <ul className={style.list}>
           {places.length ? (
             places.map((place) => (
-              <li key={place.title}>
+              <li key={place.id}>
                 <FavPlaceCard place={place} />
               </li>
             ))

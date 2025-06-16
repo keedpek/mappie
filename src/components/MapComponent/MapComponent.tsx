@@ -6,12 +6,16 @@ import Loader from '@/UI/Loader/Loader'
 const MapComponent: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
+  const handleOnLoad = () => {
+    setIsLoading(false)
+  }
+
   return (
     <div className={`${style.container}`}>
       <Map
         height={'100vh'}
         defaultState={{ center: [55.48, 28.79], zoom: 15 }}
-        onLoad={() => setIsLoading(false)}
+        onLoad={handleOnLoad}
       />
       {isLoading && <Loader size="l" />}
     </div>
