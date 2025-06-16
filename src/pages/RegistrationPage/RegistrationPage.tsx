@@ -1,4 +1,4 @@
-import RegistrationForm from '@/components/layout/Authentication/RegistrationForm/RegistrationForm'
+import RegistrationForm from '@/components/Authentication/RegistrationForm/RegistrationForm'
 import { FC } from 'react'
 
 const RegistrationPage: FC = () => {

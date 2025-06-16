@@ -8,7 +8,11 @@ interface LoaderProps {
 
 const Loader: FC<LoaderProps> = ({ size = 's', color = 'purple' }) => {
   return (
-    <div className={`${style.loader} ${style[size]} ${style[color]}`}></div>
+    <div className={`${style.container} ${style[`${size}Translate`]}`}>
+      <div className={style.spinner}>
+        <div className={`${style.loader} ${style[size]} ${style[color]}`}></div>
+      </div>
+    </div>
   )
 }
 

@@ -7,11 +7,15 @@
   padding-bottom: 0;
   background-color: #fff;
   position: absolute;
-  margin-left: 100px;
+  box-shadow: 1px 0px 20px 0px #0000001a;
+  top: 0;
+  /* TODO: мб как-то не так костыльно */
+  left: 99px;
   transition:
     transform 0.5s ease,
     opacity 0.5s ease;
   flex-grow: 0;
+  z-index: 1;
 }
 
 .close {

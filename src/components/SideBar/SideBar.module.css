@@ -15,7 +15,7 @@
 
 .menuContainer {
   display: flex;
-  width: 100%;
+  width: 60px;
   justify-content: center;
   padding: 40px 0;
   flex-grow: 1;

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import routes from './routesConfig'
+import routes from '../constants/routesConfig'
 import { Route, Routes } from 'react-router-dom'
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage'
 
