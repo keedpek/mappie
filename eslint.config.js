@@ -35,6 +35,6 @@ export default tseslint.config(
     files: ['src/components/ErrorBoundary/ErrorBoundary.tsx'],
     rules: {
       'no-console': 'off',
-    }
-  },
+    },
+  }
 )
