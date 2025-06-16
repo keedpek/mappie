@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import style from './RegistrationForm.module.css'
-import { useDispatch } from 'react-redux'
 import { setEmail, setIsAuth } from '@/store/slices/userSlice'
 import { useForm } from 'react-hook-form'
 import { object, ref, string } from 'yup'
@@ -13,6 +12,7 @@ import Loader from '@/UI/Loader/Loader'
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import { formatAuthError } from '@/utils/authErrorsParser'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '@/utils/hooks/reduxHooks'
 
 const logInSchema = object({
   email: string()
@@ -35,7 +35,7 @@ const RegistrationForm: FC = () => {
   const { errors } = formState
   const [authError, setAuthError] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const handleRegistration = async (data: RegistrationFormData) => {

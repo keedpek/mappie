@@ -19,7 +19,6 @@ const GoogleBtn: FC = () => {
     try {
       setIsLoading(true)
       const response = await signInWithPopup(auth, googleProvider)
-      console.log(response)
       dispatch(setIsAuth(true))
       dispatch(setEmail(response.user.email))
       navigate(MAIN_ROUTE)

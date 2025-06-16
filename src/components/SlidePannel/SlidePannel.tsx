@@ -11,19 +11,16 @@ const SlidePannel: FC = () => {
   const isPannelOpen = useAppSelector((store) => store.navigation.isPannelOpen)
   const dispatch = useAppDispatch()
 
+  const handleCloseBtnClick = () => {
+    dispatch(setPannelState(false))
+    dispatch(setActiveTab(''))
+  }
+
   return (
-    <div
-      className={`${style.container} ${isPannelOpen ? style.open : style.close}`}
-    >
+    <div className={`${style.container} ${!isPannelOpen && style.close}`}>
       {activeBar === 'search' && <SearchTab />}
       {activeBar === 'favourites' && <FavouritesTab />}
-      <button
-        onClick={() => {
-          dispatch(setPannelState(false))
-          dispatch(setActiveTab(''))
-        }}
-        className={style.closeBtn}
-      >
+      <button onClick={handleCloseBtnClick} className={style.closeBtn}>
         <img src={pannelLeftArrow} />
       </button>
     </div>

@@ -28,6 +28,13 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'no-console': 'warn',
+    },
+  },
+  {
+    files: ['src/components/ErrorBoundary/ErrorBoundary.tsx'],
+    rules: {
+      'no-console': 'off',
     },
   }
 )

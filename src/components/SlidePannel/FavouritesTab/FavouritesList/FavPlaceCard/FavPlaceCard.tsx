@@ -16,6 +16,15 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
   const dispatch = useAppDispatch()
   const user = useAppSelector((store) => store.user.email)
 
+  const handleRemoveClick = () => {
+    removePlaceFromStorage(place, user)
+    dispatch(removeFromFavourites(place))
+  }
+
+  const handlePlaceSelect = () => {
+    dispatch(setSelectedPlace(place))
+  }
+
   return (
     <div className={style.container}>
       <div className={style.heading}>
@@ -28,20 +37,12 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
         <p>{descriptionClipping(place.description, 150)}</p>
       </div>
       <div className={style.btnContainer}>
-        <button
-          className={`${style.btn}`}
-          onClick={() => {
-            removePlaceFromStorage(place, user)
-            dispatch(removeFromFavourites(place))
-          }}
-        >
+        <button className={`${style.btn}`} onClick={handleRemoveClick}>
           <img src={bookmarkOn} />
         </button>
         <button
           className={`${style.btn} ${style.rotate}`}
-          onClick={() => {
-            dispatch(setSelectedPlace(place))
-          }}
+          onClick={handlePlaceSelect}
         >
           <img src={pannelLeftArrow} />
         </button>

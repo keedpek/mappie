@@ -11,8 +11,8 @@ const FavouritesTab: FC = () => {
     (store) => store.navigation.selectedPlace
   )
   const favPlaces = useAppSelector((store) => store.favourites.favouritePlaces)
-  const dispatch = useAppDispatch()
   const user = useAppSelector((store) => store.user.email)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     let stored: PlaceObj[] = []
@@ -22,11 +22,14 @@ const FavouritesTab: FC = () => {
     dispatch(setFavouritePlaces(stored))
   }, [dispatch, user])
 
-  if (selectedPlace) {
-    return <SelectedPlaceCard placeInfo={selectedPlace} />
-  } else {
-    return <FavouritesList places={favPlaces} />
-  }
+  return selectedPlace ? (
+    <SelectedPlaceCard
+      placeInfo={selectedPlace}
+      isFavourite={favPlaces.includes(selectedPlace)}
+    />
+  ) : (
+    <FavouritesList places={favPlaces} />
+  )
 }
 
 export default FavouritesTab

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import style from './SelectedPlaceCard.module.css'
 import PlaceObj from '@/types/PlaceObj'
 import {
@@ -18,35 +18,36 @@ import {
   addFavouritePlaceToStorage,
   removePlaceFromStorage,
 } from '@/utils/localStorageHandler'
-import UnauthorizedPopup from '@/components/UnauthorizedPopup/UnauthorizedPopup'
 
 interface SelectedPlaceCardProps {
   placeInfo: PlaceObj
+  isFavourite: boolean
 }
 
-const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
-  const favPlaces = useAppSelector((store) => store.favourites.favouritePlaces)
-  const isFavourite = favPlaces.includes(placeInfo)
+const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
+  placeInfo,
+  isFavourite,
+}) => {
   const user = useAppSelector((store) => store.user.email)
   const dispatch = useAppDispatch()
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleSaveClick = () => {
     if (isFavourite) {
       removePlaceFromStorage(placeInfo, user)
       dispatch(removeFromFavourites(placeInfo))
-    } else if (user) {
+    } else {
       addFavouritePlaceToStorage(placeInfo, user)
       dispatch(addFavouritePlace(placeInfo))
     }
   }
 
+  const handleCloseBtnClick = () => {
+    dispatch(setSelectedPlace(null))
+  }
+
   return (
     <>
-      <button
-        className={style.closeBtn}
-        onClick={() => dispatch(setSelectedPlace(null))}
-      >
+      <button className={style.closeBtn} onClick={handleCloseBtnClick}>
         <img src={pannelLeftArrow} />
         <span>Избранные</span>
       </button>
@@ -55,6 +56,7 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
           <img className={style.img} src={placeInfo.img} />
         </div>
         <div className={style.typeIcons}>
+          {/* TODO: динамические типы реального места */}
           <img src={icons.architecture} />
           <img src={icons.history} />
         </div>
@@ -65,13 +67,7 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
         <div className={style.btnContainer}>
           <button
             className={`${style.btn} ${isFavourite ? style.saved : style.unsaved}`}
-            onClick={
-              user
-                ? handleSaveClick
-                : () => {
-                    setIsModalOpen(true)
-                  }
-            }
+            onClick={handleSaveClick}
           >
             <img src={isFavourite ? bookmarkSaved : bookmarkOff} />
             <span>{isFavourite ? 'Сохранено' : 'Сохранить'}</span>
@@ -82,13 +78,6 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
           </button>
         </div>
       </div>
-      {isModalOpen && (
-        <UnauthorizedPopup
-          onClose={() => {
-            setIsModalOpen(false)
-          }}
-        />
-      )}
     </>
   )
 }
