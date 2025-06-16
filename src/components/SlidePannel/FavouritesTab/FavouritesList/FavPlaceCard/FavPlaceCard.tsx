@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import style from './FavPlaceCard.module.css'
-import bookmark from '@/assets/bookmarkOn.svg'
-import arrow from '@/assets/pannelLeftArrow.svg'
+import { bookmarkOn, pannelLeftArrow } from '@/constants/icons'
 import { descriptionClipping } from '@/utils/descriptionClipping'
 import PlaceObj from '@/types/PlaceObj'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
@@ -36,7 +35,7 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
             dispatch(removeFromFavourites(place))
           }}
         >
-          <img src={bookmark} />
+          <img src={bookmarkOn} />
         </button>
         <button
           className={`${style.btn} ${style.rotate}`}
@@ -44,7 +43,7 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
             dispatch(setSelectedPlace(place))
           }}
         >
-          <img src={arrow} />
+          <img src={pannelLeftArrow} />
         </button>
       </div>
     </div>

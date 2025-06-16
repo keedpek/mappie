@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import SearchTab from './SearchTab/SearchTab'
 import FavouritesTab from './FavouritesTab/FavouritesTab'
 import { setActiveTab, setPannelState } from '@/store/slices/navigationSlice'
-import arrow from '@/assets/pannelLeftArrow.svg'
+import { pannelLeftArrow } from '@/constants/icons'
 
 const SlidePannel: FC = () => {
   const activeBar = useAppSelector((store) => store.navigation.activeTab)
@@ -24,7 +24,7 @@ const SlidePannel: FC = () => {
         }}
         className={style.closeBtn}
       >
-        <img src={arrow} />
+        <img src={pannelLeftArrow} />
       </button>
     </div>
   )

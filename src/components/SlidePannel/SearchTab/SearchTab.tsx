@@ -3,7 +3,7 @@ import style from './SearchTab.module.css'
 import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
 import useInput from '@/utils/hooks/useInput'
 import { filters, Filter } from '@/constants/filters'
-import magGlass from '@/assets/searchbtnOff.svg'
+import { searchbtnOff } from '@/constants/icons'
 
 const SearchTab: FC = () => {
   const searchedPlace = useInput('')
@@ -72,7 +72,7 @@ const SearchTab: FC = () => {
         </div>
       </div>
       <button className={style.searchBtn} onClick={handleSearch}>
-        <img src={magGlass} />
+        <img src={searchbtnOff} />
       </button>
     </div>
   )

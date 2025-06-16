@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import style from './GoogleBtn.module.css'
-import google from '@/assets/google-icon-logo.svg'
+import { googleIcon } from '@/constants/icons'
 import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '@/firebase'
 import { useDispatch } from 'react-redux'
@@ -37,7 +37,7 @@ const GoogleBtn: FC = () => {
         onClick={handleLogin}
         disabled={isLoading}
       >
-        <img src={google} />
+        <img src={googleIcon} />
         <span>Войти с помощью Google</span>
       </button>
       {error && <p className={style.error}>{error}</p>}

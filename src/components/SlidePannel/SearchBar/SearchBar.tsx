@@ -1,6 +1,6 @@
 import style from './SearchBar.module.css'
 import { FC } from 'react'
-import searchIcon from '@/assets/searchIcon.svg'
+import { searchIcon } from '@/constants/icons'
 
 interface SearchBarProps {
   state: {

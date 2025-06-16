@@ -1,11 +1,12 @@
 import { FC, useState } from 'react'
 import style from './SelectedPlaceCard.module.css'
 import PlaceObj from '@/types/PlaceObj'
-import savedBookmark from '@/assets/bookmarkSaved.svg'
-import bookmark from '@/assets/bookmarkOff.svg'
-import placemark from '@/assets/placemark.svg'
-import arrow from '@/assets/pannelLeftArrow.svg'
-//TODO: добавить типы в объект места
+import {
+  bookmarkSaved,
+  bookmarkOff,
+  placemark,
+  pannelLeftArrow,
+} from '@/constants/icons'
 import { icons } from '@/constants/filters'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { setSelectedPlace } from '@/store/slices/navigationSlice'
@@ -46,7 +47,7 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
         className={style.closeBtn}
         onClick={() => dispatch(setSelectedPlace(null))}
       >
-        <img src={arrow} />
+        <img src={pannelLeftArrow} />
         <span>Избранные</span>
       </button>
       <div className={style.container}>
@@ -72,7 +73,7 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({ placeInfo }) => {
                   }
             }
           >
-            <img src={isFavourite ? savedBookmark : bookmark} />
+            <img src={isFavourite ? bookmarkSaved : bookmarkOff} />
             <span>{isFavourite ? 'Сохранено' : 'Сохранить'}</span>
           </button>
           <button className={`${style.btn} ${style.path}`}>
