@@ -1,15 +1,20 @@
-import MapComponent from '@/components/layout/MapComponent/MapComponent'
-import SideBar from '@/components/layout/SideBar/SideBar'
-import SlidePannel from '@/components/layout/SlidePannel/SlidePannel'
+import MapComponent from '@/components/MapComponent/MapComponent'
+import SideBar from '@/components/SideBar/SideBar'
+import SlidePannel from '@/components/SlidePannel/SlidePannel'
+import { YMaps } from '@pbe/react-yandex-maps'
 import { FC } from 'react'
 
 const MainPage: FC = () => {
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <SideBar />
-      <SlidePannel />
-      <MapComponent />
-    </div>
+    <YMaps
+      query={{ apikey: '33e83ca1-bbd8-4cd5-827b-658750280dc4', lang: 'ru_RU' }}
+    >
+      <div style={{ display: 'flex', width: '100%' }}>
+        <SideBar />
+        <SlidePannel />
+        <MapComponent />
+      </div>
+    </YMaps>
   )
 }
 

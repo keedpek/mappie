@@ -39,7 +39,9 @@
   justify-content: center;
   align-items: center;
   min-width: 20%;
+  min-height: 40px;
   padding: 10px;
+  position: relative;
   border: none;
   border-radius: 7px;
   background-color: #5e7bc7;

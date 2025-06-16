@@ -17,7 +17,7 @@ import {
   addFavouritePlaceToStorage,
   removePlaceFromStorage,
 } from '@/utils/localStorageHandler'
-import UnauthorizedPopup from '@/components/layout/UnauthorizedPopup/UnauthorizedPopup'
+import UnauthorizedPopup from '@/components/UnauthorizedPopup/UnauthorizedPopup'
 
 interface SelectedPlaceCardProps {
   placeInfo: PlaceObj

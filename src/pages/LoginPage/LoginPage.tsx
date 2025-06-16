@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import LogInForm from '@/components/layout/Authentication/LogInForm/LogInForm'
+import LogInForm from '@/components/Authentication/LogInForm/LogInForm'
 
 const LoginPage: FC = () => {
   return <LogInForm />

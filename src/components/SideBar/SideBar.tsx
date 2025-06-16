@@ -12,6 +12,8 @@ import { useTabToggle } from '@/utils/hooks/useTabToggle'
 import { LOGIN_ROUTE } from '@/constants/routes'
 import { useNavigate } from 'react-router-dom'
 
+// TODO: картинки в константу
+
 const SideBar: FC = () => {
   const isAuth = useAppSelector((store) => store.user.isAuth)
   const activeTab = useAppSelector((store) => store.navigation.activeTab)
