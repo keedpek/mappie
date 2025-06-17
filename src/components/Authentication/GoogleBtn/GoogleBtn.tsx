@@ -36,7 +36,7 @@ const GoogleBtn: FC = () => {
         onClick={handleLogin}
         disabled={isLoading}
       >
-        <img src={googleIcon} />
+        <img src={googleIcon} alt="google icon" />
         <span>Войти с помощью Google</span>
       </button>
       {error && <p className={style.error}>{error}</p>}

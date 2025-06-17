@@ -35,7 +35,7 @@ const SideBar: FC = () => {
   return (
     <aside className={style.container}>
       <div className={style.logoContainer}>
-        <img className={style.logo} src={mappieLogo} />
+        <img className={style.logo} src={mappieLogo} alt="mappie" />
       </div>
 
       <nav className={style.menuContainer}>
@@ -45,7 +45,10 @@ const SideBar: FC = () => {
               className={`${style.btn} ${style.search} ${activeTab === 'search' && style.active}`}
               onClick={handleSearchClick}
             >
-              <img src={activeTab === 'search' ? searchbtnOn : searchbtnOff} />
+              <img
+                src={activeTab === 'search' ? searchbtnOn : searchbtnOff}
+                alt="search"
+              />
             </button>
           </li>
           <li>
@@ -55,6 +58,7 @@ const SideBar: FC = () => {
             >
               <img
                 src={activeTab === 'favourites' ? bookmarkOn : bookmarkOff}
+                alt="favourites"
               />
             </button>
           </li>
@@ -63,11 +67,11 @@ const SideBar: FC = () => {
 
       {isAuth ? (
         <div className={style.avatarContainer}>
-          <img className={style.avatar} src={avatarPlaceholder} />
+          <img className={style.avatar} src={avatarPlaceholder} alt="avatar" />
         </div>
       ) : (
         <button className={style.loginBtn} onClick={handleLoginClick}>
-          <img src={logIn} />
+          <img src={logIn} alt="login" />
         </button>
       )}
     </aside>

@@ -21,7 +21,7 @@ const SlidePannel: FC = () => {
       {activeBar === 'search' && <SearchTab />}
       {activeBar === 'favourites' && <FavouritesTab />}
       <button onClick={handleCloseBtnClick} className={style.closeBtn}>
-        <img src={pannelLeftArrow} />
+        <img src={pannelLeftArrow} alt="close" />
       </button>
     </div>
   )
