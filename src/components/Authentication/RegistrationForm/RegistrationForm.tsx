@@ -1,17 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { object, ref, string } from 'yup'
 
-import { LOGIN_ROUTE, MAIN_ROUTE } from '@/constants/routes'
-import { auth } from '@/firebase'
-import { setEmail, setIsAuth } from '@/store/slices/userSlice'
+import { LOGIN_ROUTE } from '@/constants/routes'
 import { RegistrationFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/authErrorsParser'
-import { useAppDispatch } from '@/utils/hooks/reduxHooks'
+import { useAuth } from '@/utils/hooks/useAuth'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './RegistrationForm.module.css'
@@ -37,20 +33,12 @@ const RegistrationForm: FC = () => {
   const { errors } = formState
   const [authError, setAuthError] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const { registerUser } = useAuth()
 
   const handleRegistration = async (data: RegistrationFormData) => {
     try {
       setIsLoading(true)
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-      dispatch(setIsAuth(true))
-      dispatch(setEmail(response.user.email))
-      navigate(MAIN_ROUTE)
+      registerUser(data.email, data.password)
     } catch (error) {
       setAuthError(formatAuthError(error.message))
     } finally {

@@ -1,17 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { object, string } from 'yup'
 
-import { MAIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
-import { auth } from '@/firebase'
-import { setEmail, setIsAuth } from '@/store/slices/userSlice'
+import { REGISTRATION_ROUTE } from '@/constants/routes'
 import { LogInFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/authErrorsParser'
+import { useAuth } from '@/utils/hooks/useAuth'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './LogInForm.module.css'
@@ -31,20 +27,12 @@ const LogInForm: FC = () => {
   const { errors } = formState
   const [authError, setAuthError] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { loginWithEmailAndPassword } = useAuth()
 
   const handleLogin = async (data: LogInFormData) => {
     try {
       setIsLoading(true)
-      const response = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-      dispatch(setIsAuth(true))
-      dispatch(setEmail(response.user.email))
-      navigate(MAIN_ROUTE)
+      loginWithEmailAndPassword(data.email, data.password)
     } catch (error) {
       setAuthError(formatAuthError(error.message))
     } finally {
