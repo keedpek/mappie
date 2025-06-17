@@ -1,10 +1,12 @@
 import { FC, useState } from 'react'
-import style from './SearchTab.module.css'
+
 import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
-import useInput from '@/utils/hooks/useInput'
-import Filter from '@/types/Filter'
 import { filters } from '@/constants/filters'
 import { searchbtnOff } from '@/constants/icons'
+import Filter from '@/types/Filter'
+import useInput from '@/utils/hooks/useInput'
+
+import style from './SearchTab.module.css'
 
 const SearchTab: FC = () => {
   const searchedPlace = useInput('')

@@ -1,5 +1,6 @@
-import RegistrationForm from '@/components/Authentication/RegistrationForm/RegistrationForm'
 import { FC } from 'react'
+
+import RegistrationForm from '@/components/Authentication/RegistrationForm/RegistrationForm'
 
 const RegistrationPage: FC = () => {
   return <RegistrationForm />

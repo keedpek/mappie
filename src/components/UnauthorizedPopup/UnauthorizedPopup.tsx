@@ -1,7 +1,9 @@
 import { FC } from 'react'
-import style from './UnauthorizedPopup.module.css'
 import { useNavigate } from 'react-router-dom'
+
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
+
+import style from './UnauthorizedPopup.module.css'
 
 interface UnauthorizedPopupProps {
   onClose: () => void

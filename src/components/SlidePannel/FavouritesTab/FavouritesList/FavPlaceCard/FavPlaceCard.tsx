@@ -1,12 +1,14 @@
 import { FC } from 'react'
-import style from './FavPlaceCard.module.css'
+
 import { bookmarkOn, pannelLeftArrow } from '@/constants/icons'
-import { descriptionClipping } from '@/utils/descriptionClipping'
-import PlaceObj from '@/types/PlaceObj'
-import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
-import { setSelectedPlace } from '@/store/slices/navigationSlice'
 import { removeFromFavourites } from '@/store/slices/favouritesSlice'
+import { setSelectedPlace } from '@/store/slices/navigationSlice'
+import PlaceObj from '@/types/PlaceObj'
+import { descriptionClipping } from '@/utils/descriptionClipping'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { removePlaceFromStorage } from '@/utils/localStorageHandler'
+
+import style from './FavPlaceCard.module.css'
 
 interface FavPlaceCardProps {
   place: PlaceObj

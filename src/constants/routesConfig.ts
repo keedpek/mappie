@@ -1,6 +1,6 @@
-import { MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
-import MainPage from '@/pages/MainPage/MainPage'
+import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
 import LoginPage from '@/pages/LoginPage/LoginPage'
+import MainPage from '@/pages/MainPage/MainPage'
 import RegistrationPage from '@/pages/RegistrationPage/RegistrationPage'
 import RouteConfig from '@/types/RouteConfig'
 

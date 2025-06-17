@@ -1,5 +1,6 @@
-import PlaceObj from '@/types/PlaceObj'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import PlaceObj from '@/types/PlaceObj'
 
 interface FavouritesState {
   favouritePlaces: PlaceObj[]

@@ -1,8 +1,9 @@
+import { YMaps } from '@pbe/react-yandex-maps'
+import { FC } from 'react'
+
 import MapComponent from '@/components/MapComponent/MapComponent'
 import SideBar from '@/components/SideBar/SideBar'
 import SlidePannel from '@/components/SlidePannel/SlidePannel'
-import { YMaps } from '@pbe/react-yandex-maps'
-import { FC } from 'react'
 
 const MainPage: FC = () => {
   return (

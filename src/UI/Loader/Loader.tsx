@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import style from './Loader.module.css'
 
 interface LoaderProps {

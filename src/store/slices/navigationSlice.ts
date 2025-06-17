@@ -1,6 +1,7 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { NavTab } from '@/types/NavTab'
 import PlaceObj from '@/types/PlaceObj'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface NavigationState {
   activeTab: NavTab

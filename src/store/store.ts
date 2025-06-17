@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userSlice from './slices/userSlice'
-import navigationSlice from './slices/navigationSlice'
+
 import favouritesSlice from './slices/favouritesSlice'
+import navigationSlice from './slices/navigationSlice'
+import userSlice from './slices/userSlice'
 
 const rootReduser = combineReducers({
   user: userSlice,

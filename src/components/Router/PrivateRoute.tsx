@@ -1,7 +1,8 @@
 import { FC } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { useAppSelector } from '@/utils/hooks/reduxHooks'
+
 import { LOGIN_ROUTE } from '@/constants/routes'
+import { useAppSelector } from '@/utils/hooks/reduxHooks'
 
 const PrivateRoute: FC = () => {
   const isAuth = useAppSelector((store) => store.user.isAuth)

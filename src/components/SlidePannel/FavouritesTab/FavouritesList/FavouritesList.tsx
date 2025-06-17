@@ -1,8 +1,10 @@
 import { FC } from 'react'
-import style from './FavouritesList.module.css'
+
+import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
 import PlaceObj from '@/types/PlaceObj'
 import useInput from '@/utils/hooks/useInput'
-import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
+
+import style from './FavouritesList.module.css'
 import FavPlaceCard from './FavPlaceCard/FavPlaceCard'
 
 interface FavouritesListProps {

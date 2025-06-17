@@ -6,9 +6,9 @@ import logIn from '@/assets/logIn.svg'
 import mappieLogo from '@/assets/mappieLogo.svg'
 import pannelLeftArrow from '@/assets/pannelLeftArrow.svg'
 import placemark from '@/assets/placemark.svg'
-import searchIcon from '@/assets/searchIcon.svg'
 import searchbtnOff from '@/assets/searchbtnOff.svg'
 import searchbtnOn from '@/assets/searchbtnOn.svg'
+import searchIcon from '@/assets/searchIcon.svg'
 
 export {
   bookmarkOff,
@@ -19,7 +19,7 @@ export {
   mappieLogo,
   pannelLeftArrow,
   placemark,
-  searchIcon,
   searchbtnOff,
   searchbtnOn,
+  searchIcon,
 }

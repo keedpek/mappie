@@ -1,13 +1,15 @@
-import { FC, useState } from 'react'
-import style from './GoogleBtn.module.css'
-import { googleIcon } from '@/constants/icons'
 import { signInWithPopup } from 'firebase/auth'
-import { auth, googleProvider } from '@/firebase'
+import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { googleIcon } from '@/constants/icons'
+import { MAIN_ROUTE } from '@/constants/routes'
+import { auth, googleProvider } from '@/firebase'
 import { setEmail, setIsAuth } from '@/store/slices/userSlice'
 import { formatAuthError } from '@/utils/authErrorsParser'
-import { useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE } from '@/constants/routes'
+
+import style from './GoogleBtn.module.css'
 
 const GoogleBtn: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

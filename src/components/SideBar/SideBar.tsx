@@ -1,18 +1,20 @@
 import { FC } from 'react'
-import style from './SideBar.module.css'
+import { useNavigate } from 'react-router-dom'
+
+import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
 import {
   bookmarkOff,
   bookmarkOn,
+  logIn,
+  mappieLogo,
   searchbtnOff,
   searchbtnOn,
-  mappieLogo,
-  logIn,
 } from '@/constants/icons'
-import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
+import { LOGIN_ROUTE } from '@/constants/routes'
 import { useAppSelector } from '@/utils/hooks/reduxHooks'
 import { useTabToggle } from '@/utils/hooks/useTabToggle'
-import { LOGIN_ROUTE } from '@/constants/routes'
-import { useNavigate } from 'react-router-dom'
+
+import style from './SideBar.module.css'
 
 const SideBar: FC = () => {
   const isAuth = useAppSelector((store) => store.user.isAuth)

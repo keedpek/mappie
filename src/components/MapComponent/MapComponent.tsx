@@ -1,7 +1,9 @@
-import { FC, useState } from 'react'
-import style from './MapComponent.module.css'
 import { Map } from '@pbe/react-yandex-maps'
+import { FC, useState } from 'react'
+
 import Loader from '@/UI/Loader/Loader'
+
+import style from './MapComponent.module.css'
 
 const MapComponent: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)

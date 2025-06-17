@@ -1,6 +1,7 @@
-import { NavTab } from '@/types/NavTab'
-import { useAppDispatch, useAppSelector } from './reduxHooks'
 import { setActiveTab, setPannelState } from '@/store/slices/navigationSlice'
+import { NavTab } from '@/types/NavTab'
+
+import { useAppDispatch, useAppSelector } from './reduxHooks'
 
 export function useTabToggle() {
   const activeTab = useAppSelector((store) => store.navigation.activeTab)

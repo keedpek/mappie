@@ -1,23 +1,25 @@
 import { FC } from 'react'
-import style from './SelectedPlaceCard.module.css'
-import PlaceObj from '@/types/PlaceObj'
-import {
-  bookmarkSaved,
-  bookmarkOff,
-  placemark,
-  pannelLeftArrow,
-} from '@/constants/icons'
+
 import { icons } from '@/constants/filters'
-import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
-import { setSelectedPlace } from '@/store/slices/navigationSlice'
+import {
+  bookmarkOff,
+  bookmarkSaved,
+  pannelLeftArrow,
+  placemark,
+} from '@/constants/icons'
 import {
   addFavouritePlace,
   removeFromFavourites,
 } from '@/store/slices/favouritesSlice'
+import { setSelectedPlace } from '@/store/slices/navigationSlice'
+import PlaceObj from '@/types/PlaceObj'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import {
   addFavouritePlaceToStorage,
   removePlaceFromStorage,
 } from '@/utils/localStorageHandler'
+
+import style from './SelectedPlaceCard.module.css'
 
 interface SelectedPlaceCardProps {
   placeInfo: PlaceObj

@@ -1,18 +1,20 @@
-import { FC, useState } from 'react'
-import style from './LogInForm.module.css'
-import { useDispatch } from 'react-redux'
-import { setEmail, setIsAuth } from '@/store/slices/userSlice'
-import { useForm } from 'react-hook-form'
-import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebase'
-import { LogInFormData } from '@/types/authentication'
-import { MAIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
-import Loader from '@/UI/Loader/Loader'
-import GoogleBtn from '../GoogleBtn/GoogleBtn'
-import { formatAuthError } from '@/utils/authErrorsParser'
+import { FC, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { object, string } from 'yup'
+
+import { MAIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
+import { auth } from '@/firebase'
+import { setEmail, setIsAuth } from '@/store/slices/userSlice'
+import { LogInFormData } from '@/types/authentication'
+import Loader from '@/UI/Loader/Loader'
+import { formatAuthError } from '@/utils/authErrorsParser'
+
+import GoogleBtn from '../GoogleBtn/GoogleBtn'
+import style from './LogInForm.module.css'
 
 const logInSchema = object({
   email: string()

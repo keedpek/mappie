@@ -1,18 +1,20 @@
-import { FC, useState } from 'react'
-import style from './RegistrationForm.module.css'
-import { setEmail, setIsAuth } from '@/store/slices/userSlice'
-import { useForm } from 'react-hook-form'
-import { object, ref, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebase'
-import { RegistrationFormData } from '@/types/authentication'
-import { LOGIN_ROUTE, MAIN_ROUTE } from '@/constants/routes'
-import Loader from '@/UI/Loader/Loader'
-import GoogleBtn from '../GoogleBtn/GoogleBtn'
-import { formatAuthError } from '@/utils/authErrorsParser'
+import { FC, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { object, ref, string } from 'yup'
+
+import { LOGIN_ROUTE, MAIN_ROUTE } from '@/constants/routes'
+import { auth } from '@/firebase'
+import { setEmail, setIsAuth } from '@/store/slices/userSlice'
+import { RegistrationFormData } from '@/types/authentication'
+import Loader from '@/UI/Loader/Loader'
+import { formatAuthError } from '@/utils/authErrorsParser'
 import { useAppDispatch } from '@/utils/hooks/reduxHooks'
+
+import GoogleBtn from '../GoogleBtn/GoogleBtn'
+import style from './RegistrationForm.module.css'
 
 const logInSchema = object({
   email: string()

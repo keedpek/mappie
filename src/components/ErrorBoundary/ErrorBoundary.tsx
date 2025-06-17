@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { navigateToMain } from '@/utils/navigate'
+
 import style from './ErrorBoundary.module.css'
 
 interface ErrorBoundaryProps {

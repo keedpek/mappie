@@ -1,5 +1,5 @@
-import PlaceObj from '@/types/PlaceObj'
 import mock from '@/constants/mock'
+import PlaceObj from '@/types/PlaceObj'
 import { StoredFavPlaces } from '@/types/StoredFavPlaces'
 
 const STORAGE_KEY = 'favouritePlaces'
