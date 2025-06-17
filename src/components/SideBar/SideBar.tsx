@@ -1,7 +1,5 @@
-import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC, useState } from 'react'
 
-import avatarPlaceholder from '@/assets/avatarPlaceholder.png'
 import {
   bookmarkOff,
   bookmarkOn,
@@ -10,20 +8,24 @@ import {
   searchbtnOff,
   searchbtnOn,
 } from '@/constants/icons'
-import { LOGIN_ROUTE } from '@/constants/routes'
 import { useAppSelector } from '@/utils/hooks/reduxHooks'
+import { useAuth } from '@/utils/hooks/useAuth'
 import { useTabToggle } from '@/utils/hooks/useTabToggle'
 
 import style from './SideBar.module.css'
 
 const SideBar: FC = () => {
-  const isAuth = useAppSelector((store) => store.user.isAuth)
+  const [logoutError, setLogoutError] = useState<string>('')
   const activeTab = useAppSelector((store) => store.navigation.activeTab)
   const tabToggle = useTabToggle()
-  const navigate = useNavigate()
+  const { logout } = useAuth()
 
-  const handleLoginClick = () => {
-    navigate(LOGIN_ROUTE)
+  const handleLogoutClick = async () => {
+    try {
+      logout()
+    } catch (error) {
+      setLogoutError(error.message)
+    }
   }
 
   const handleSearchClick = () => {
@@ -66,16 +68,11 @@ const SideBar: FC = () => {
           </li>
         </ul>
       </nav>
-
-      {isAuth ? (
-        <div className={style.avatarContainer}>
-          <img className={style.avatar} src={avatarPlaceholder} alt="avatar" />
-        </div>
-      ) : (
-        <button className={style.loginBtn} onClick={handleLoginClick}>
-          <img src={logIn} alt="login" />
-        </button>
-      )}
+      <button className={style.loginBtn} onClick={handleLogoutClick}>
+        <img src={logIn} alt="login" />
+      </button>
+      {/* заменить на тост */}
+      {logoutError && <p>{logoutError}</p>}
     </aside>
   )
 }
