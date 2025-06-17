@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import AppRouter from './components/Router/AppRouter'
-import { LOGIN_ROUTE, MAIN_ROUTE } from './constants/routes'
+import { MAIN_ROUTE } from './constants/routes'
 import { auth } from './firebase'
 import { logoutUser, setUser } from './store/slices/userSlice'
 import Loader from './UI/Loader/Loader'
@@ -20,7 +20,6 @@ function App() {
         navigate(MAIN_ROUTE)
       } else {
         dispatch(logoutUser())
-        navigate(LOGIN_ROUTE)
       }
       setIsLoading(false)
     })
