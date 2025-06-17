@@ -48,17 +48,17 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
   return (
     <>
       <button className={style.closeBtn} onClick={handleCloseBtnClick}>
-        <img src={pannelLeftArrow} />
+        <img src={pannelLeftArrow} alt="back" />
         <span>Избранные</span>
       </button>
       <div className={style.container}>
         <div className={style.imgContainer}>
-          <img className={style.img} src={placeInfo.img} />
+          <img className={style.img} src={placeInfo.img} alt="place img" />
         </div>
         <div className={style.typeIcons}>
           {/* TODO: динамические типы реального места */}
-          <img src={icons.architecture} />
-          <img src={icons.history} />
+          <img src={icons.architecture} alt="type" />
+          <img src={icons.history} alt="type" />
         </div>
         <h2 className={style.title}>{placeInfo.title}</h2>
         <div className={style.description}>
@@ -69,11 +69,14 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
             className={`${style.btn} ${isFavourite ? style.saved : style.unsaved}`}
             onClick={handleSaveClick}
           >
-            <img src={isFavourite ? bookmarkSaved : bookmarkOff} />
+            <img
+              src={isFavourite ? bookmarkSaved : bookmarkOff}
+              alt={isFavourite ? 'delete' : 'save'}
+            />
             <span>{isFavourite ? 'Сохранено' : 'Сохранить'}</span>
           </button>
           <button className={`${style.btn} ${style.path}`}>
-            <img src={placemark} />
+            <img src={placemark} alt="navigate" />
             <span>Маршрут</span>
           </button>
         </div>

@@ -12,7 +12,7 @@ interface SearchBarProps {
 const SearchBar: FC<SearchBarProps> = ({ state }) => {
   return (
     <div className={style.container}>
-      <img src={searchIcon} />
+      <img src={searchIcon} alt="search icon" />
       <input className={style.input} {...state} placeholder="Место, адрес..." />
     </div>
   )

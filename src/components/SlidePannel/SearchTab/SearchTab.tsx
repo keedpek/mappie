@@ -37,7 +37,11 @@ const SearchTab: FC = () => {
                 className={`${style.filter} ${isSelected && style.selected}`}
                 onClick={handleClick(filter)}
               >
-                <img className={style.icon} src={filter.icon} />
+                <img
+                  className={style.icon}
+                  src={filter.icon}
+                  alt="search input"
+                />
                 <h3>{filter.title}</h3>
               </li>
             )
@@ -56,7 +60,7 @@ const SearchTab: FC = () => {
         </div>
       </div>
       <button className={style.searchBtn} onClick={handleSearch}>
-        <img src={searchbtnOff} />
+        <img src={searchbtnOff} alt="search button" />
       </button>
     </div>
   )

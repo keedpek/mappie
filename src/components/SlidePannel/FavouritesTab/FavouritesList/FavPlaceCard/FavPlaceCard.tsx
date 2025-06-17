@@ -29,7 +29,7 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
     <div className={style.container}>
       <div className={style.heading}>
         <div className={style.imgContainer}>
-          <img className={style.img} src={place.img} />
+          <img className={style.img} src={place.img} alt="place img" />
         </div>
         <h2 className={style.title}>{place.title}</h2>
       </div>
@@ -38,13 +38,13 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
       </div>
       <div className={style.btnContainer}>
         <button className={`${style.btn}`} onClick={handleRemoveClick}>
-          <img src={bookmarkOn} />
+          <img src={bookmarkOn} alt="delete" />
         </button>
         <button
           className={`${style.btn} ${style.rotate}`}
           onClick={handlePlaceSelect}
         >
-          <img src={pannelLeftArrow} />
+          <img src={pannelLeftArrow} alt="open" />
         </button>
       </div>
     </div>
