@@ -5,6 +5,7 @@ import { filters } from '@/constants/filters'
 import { searchbtnOff } from '@/constants/icons'
 import Filter from '@/types/Filter'
 import useInput from '@/utils/hooks/useInput'
+import useYMaps from '@/utils/hooks/useYMaps'
 
 import style from './SearchTab.module.css'
 
@@ -12,6 +13,7 @@ const SearchTab: FC = () => {
   const searchedPlace = useInput('')
   const searchRadius = useInput('')
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const { searchPlaces } = useYMaps()
 
   const handleClick = (filter: Filter) => () => {
     setSelectedFilters((prev) =>
@@ -22,7 +24,11 @@ const SearchTab: FC = () => {
   }
 
   const handleSearch = () => {
-    //TODO: сделать
+    searchPlaces(
+      searchedPlace.value,
+      selectedFilters,
+      Number(searchRadius.value)
+    )
   }
 
   return (
