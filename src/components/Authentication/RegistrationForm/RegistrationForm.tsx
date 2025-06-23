@@ -8,6 +8,7 @@ import { RegistrationFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/authErrorsParser'
 import { useAuth } from '@/utils/hooks/useAuth'
+import { useToast } from '@/utils/hooks/useToast'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './RegistrationForm.module.css'
@@ -15,11 +16,11 @@ import style from './RegistrationForm.module.css'
 const logInSchema = object({
   email: string()
     .email('Некорректный адрес почты')
-    .required('Почта обязательна'),
+    .required('Почта является обязательным полем'),
   password: string()
-    .min(6, 'Пароль должен содержать хотя бы 6 символов')
-    .matches(/[0-9]/, 'Пароль должен содержать хотя бы одну цифру')
-    .required('Пароль обязателен'),
+    .min(6, 'Минимальная длина пароля 6 символов')
+    .matches(/[0-9]/, 'Пароль должен содержать цифры')
+    .required('Пароль является обязательным полем'),
   confirmedPassword: string()
     .oneOf([ref('password')], 'Пароли должны совпадать')
     .required('Подтверждение пароля обязательно'),
@@ -31,16 +32,17 @@ const RegistrationForm: FC = () => {
     resolver: yupResolver(logInSchema),
   })
   const { errors } = formState
-  const [authError, setAuthError] = useState<string>('')
+  const { addToast } = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { registerUser } = useAuth()
 
   const handleRegistration = async (data: RegistrationFormData) => {
     try {
       setIsLoading(true)
-      registerUser(data.email, data.password)
+      await registerUser(data.email, data.password)
+      addToast('Регистрация прошла успешно!', 'success')
     } catch (error) {
-      setAuthError(formatAuthError(error.message))
+      addToast(formatAuthError(error.message), 'error')
     } finally {
       setIsLoading(false)
     }
@@ -86,7 +88,6 @@ const RegistrationForm: FC = () => {
         <button className={style.submitBtn} disabled={isLoading}>
           {isLoading ? <Loader color="white" /> : 'Зарегистрироваться'}
         </button>
-        {authError && <p className={style.error}>{authError}</p>}
       </form>
       <GoogleBtn />
       <div className={style.registerLink}>

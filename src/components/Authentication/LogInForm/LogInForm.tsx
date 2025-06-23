@@ -8,6 +8,7 @@ import { LogInFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/authErrorsParser'
 import { useAuth } from '@/utils/hooks/useAuth'
+import { useToast } from '@/utils/hooks/useToast'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './LogInForm.module.css'
@@ -25,16 +26,17 @@ const LogInForm: FC = () => {
     resolver: yupResolver(logInSchema),
   })
   const { errors } = formState
-  const [authError, setAuthError] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { loginWithEmailAndPassword } = useAuth()
+  const { addToast } = useToast()
 
   const handleLogin = async (data: LogInFormData) => {
     try {
       setIsLoading(true)
-      loginWithEmailAndPassword(data.email, data.password)
+      await loginWithEmailAndPassword(data.email, data.password)
+      addToast(`Добро пожаловать, ${data.email}!`, 'success')
     } catch (error) {
-      setAuthError(formatAuthError(error.message))
+      addToast(formatAuthError(error.message), 'error')
     } finally {
       setIsLoading(false)
     }
@@ -70,7 +72,6 @@ const LogInForm: FC = () => {
         <button className={style.submitBtn} disabled={isLoading}>
           {isLoading ? <Loader color="white" /> : 'Войти'}
         </button>
-        {authError && <p className={style.error}>{authError}</p>}
       </form>
       <GoogleBtn />
       <div className={style.registerLink}>

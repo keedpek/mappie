@@ -16,6 +16,7 @@ import { setSelectedPlace } from '@/store/slices/navigationSlice'
 import PlaceObj from '@/types/PlaceObj'
 import { findCategoryImg } from '@/utils/findCategoryImg'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
+import { useToast } from '@/utils/hooks/useToast'
 import {
   addFavouritePlaceToStorage,
   removePlaceFromStorage,
@@ -34,14 +35,17 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
 }) => {
   const user = useAppSelector((store) => store.user.email)
   const dispatch = useAppDispatch()
+  const { addToast } = useToast()
 
   const handleSaveClick = () => {
     if (isFavourite) {
       removePlaceFromStorage(placeInfo, user)
       dispatch(removeFromFavourites(placeInfo))
+      addToast('Место убрано из избранных', 'success')
     } else {
       addFavouritePlaceToStorage(placeInfo, user)
       dispatch(addFavouritePlace(placeInfo))
+      addToast('Место добавлено в избранные', 'success')
     }
   }
 
