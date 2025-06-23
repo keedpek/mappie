@@ -10,7 +10,7 @@ import PlaceObj from '@/types/PlaceObj'
 import { findCategoryImg } from '@/utils/findCategoryImg'
 import { useAppDispatch } from '@/utils/hooks/reduxHooks'
 
-import style from './PlaceMarker.module.css'
+import style from './Marker.module.css'
 
 interface PlaceMarkerProps {
   place: PlaceObj

@@ -1,102 +1,90 @@
-import { FC } from 'react'
-import type { LngLat, YMapLocationRequest } from 'ymaps3'
+import { FC, useEffect } from 'react'
+import { YMapLocationRequest } from 'ymaps3'
 
+import { DEFAULT_LOCATION } from '@/constants/map'
 import {
   reactify,
   YMap,
   YMapDefaultFeaturesLayer,
   YMapDefaultSchemeLayer,
 } from '@/lib/ymaps'
-import { useAppSelector } from '@/utils/hooks/reduxHooks'
+import { setSearchCenter } from '@/store/slices/mapSlice'
+import Loader from '@/UI/Loader/Loader'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
+import useGeolocation from '@/utils/hooks/useGeolocation'
 
-// import useYMaps from '@/utils/hooks/useYMaps'
 import style from './MapComponent.module.css'
+import AddresMarker from './PlaceMarker/AddresMarker'
 import PlaceMarker from './PlaceMarker/PlaceMarker'
+import Route from './Route/Route'
+import SearchCircle from './SearchCircle/SearchCircle'
+import UserMarker from './UserMarker/UserMarker'
 
 const MapComponent: FC = () => {
-  const LOCATION: YMapLocationRequest = {
-    center: [27.75, 53.85],
-    zoom: 9,
-  }
-  const searchedPlaces = useAppSelector((store) => store.map.searchedPlaces)
-  const mockPlaces = [
-    {
-      id: '1',
-      img: 'https://via.placeholder.com/100x80?text=Shop+1',
-      title: 'Магазин "Солнечный"',
-      description: 'Продуктовый магазин у дома',
-      adress: 'ул. Ленина, д. 10',
-      coordinates: [27.71, 53.81] as LngLat,
-      category: 'Shop',
-    },
-    {
-      id: '2',
-      img: 'https://via.placeholder.com/100x80?text=Cafe+2',
-      title: 'Кафе "Уют"',
-      description: 'Уютное семейное кафе с домашней кухней',
-      adress: 'ул. Гоголя, д. 5',
-      coordinates: [27.72, 53.82] as LngLat,
-      category: 'Coffee',
-    },
-    {
-      id: '3',
-      img: 'https://via.placeholder.com/100x80?text=Park+3',
-      title: 'Парк культуры и отдыха',
-      description: 'Большой зелёный парк с аттракционами',
-      adress: 'проспект Победы, д. 1',
-      coordinates: [27.73, 53.83] as LngLat,
-      category: 'Entertainment',
-    },
-    {
-      id: '4',
-      img: 'https://via.placeholder.com/100x80?text=Pharmacy+4',
-      title: 'Аптека №1',
-      description: 'Круглосуточная аптека',
-      adress: 'ул. Московская, д. 15',
-      coordinates: [27.74, 53.84] as LngLat,
-      category: 'History',
-    },
-    {
-      id: '5',
-      img: 'https://via.placeholder.com/100x80?text=Bank+5',
-      title: 'Банк Беларусбанка',
-      description: 'Отделение банка с услугами для физических лиц',
-      adress: 'ул. Интернациональная, д. 8',
-      coordinates: [27.75, 53.85] as LngLat,
-      category: 'Bank',
-    },
-    {
-      id: '6',
-      img: 'https://via.placeholder.com/100x80?text=Gas+Station+6',
-      title: 'АЗС №7',
-      description: 'Автозаправочная станция круглосуточно',
-      adress: 'трасса М1, выезд 12',
-      coordinates: [27.76, 53.86] as LngLat,
-      category: 'GasStation',
-    },
-  ]
-  // const mapDivRef = useRef<HTMLDivElement>(null)
-  // const { loadYandexMaps } = useYMaps()
+  const {
+    coords,
+    trackedCoords,
+    error,
+    getGeolocation,
+    watchGeolocation,
+    clearWatch,
+  } = useGeolocation()
 
-  // useEffect(() => {
-  //   loadYandexMaps(mapDivRef)
-  //     .then(() => {
-  //       setIsLoading(false)
-  //     })
-  //     .catch((error) => {
-  //       console.error(error)
-  //     })
-  // }, [loadYandexMaps])
+  const {
+    searchedPlaces,
+    searchedAddresses,
+    searchCenter,
+    searchRadius,
+    routePlace,
+  } = useAppSelector((store) => store.map)
+  const dispatch = useAppDispatch()
+
+  const location: YMapLocationRequest = {
+    center: trackedCoords ? trackedCoords : DEFAULT_LOCATION,
+    zoom: 15,
+  }
+
+  useEffect(() => {
+    getGeolocation()
+    watchGeolocation()
+    if (JSON.stringify(searchCenter) !== JSON.stringify(coords)) {
+      dispatch(setSearchCenter(coords))
+    }
+    return clearWatch
+  }, [
+    clearWatch,
+    coords,
+    dispatch,
+    getGeolocation,
+    searchCenter,
+    watchGeolocation,
+  ])
+
+  if (!coords || !trackedCoords) {
+    return <Loader size="l" />
+  }
 
   return (
     <div className={`${style.container}`}>
-      <YMap location={reactify.useDefault(LOCATION)}>
+      <YMap location={reactify.useDefault(location)}>
         <YMapDefaultSchemeLayer />
         <YMapDefaultFeaturesLayer />
 
-        {mockPlaces.map((place) => (
-          <PlaceMarker place={place} />
-        ))}
+        {!error && trackedCoords && (
+          <UserMarker coords={trackedCoords || DEFAULT_LOCATION} />
+        )}
+        <SearchCircle radius={searchRadius} center={searchCenter} />
+        {searchedPlaces &&
+          searchedPlaces.map((place) => (
+            <PlaceMarker key={place.id} place={place} />
+          ))}
+        {searchedAddresses &&
+          searchedAddresses.map((address) => (
+            <AddresMarker key={address.id} place={address} />
+          ))}
+        {routePlace && (
+          <Route from={[27.4894325, 53.9137759]} to={routePlace} />
+        )}
       </YMap>
     </div>
   )
