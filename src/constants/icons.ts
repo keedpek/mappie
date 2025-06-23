@@ -9,6 +9,7 @@ import placemark from '@/assets/placemark.svg'
 import searchbtnOff from '@/assets/searchbtnOff.svg'
 import searchbtnOn from '@/assets/searchbtnOn.svg'
 import searchIcon from '@/assets/searchIcon.svg'
+import userMarker from '@/assets/userMarker.svg'
 
 export {
   bookmarkOff,
@@ -22,4 +23,5 @@ export {
   searchbtnOff,
   searchbtnOn,
   searchIcon,
+  userMarker,
 }

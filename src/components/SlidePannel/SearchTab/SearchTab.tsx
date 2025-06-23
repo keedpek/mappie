@@ -1,9 +1,17 @@
 import { FC, useState } from 'react'
 
+import { searchByAddres, searchPlaces } from '@/api/search'
 import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
 import { filters } from '@/constants/filters'
 import { searchbtnOff } from '@/constants/icons'
+import {
+  setSearchedAddresses,
+  setSearchedPlaces,
+  setSearchRadius,
+} from '@/store/slices/mapSlice'
 import Filter from '@/types/Filter'
+import Loader from '@/UI/Loader/Loader'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import useInput from '@/utils/hooks/useInput'
 
 import style from './SearchTab.module.css'
@@ -11,18 +19,61 @@ import style from './SearchTab.module.css'
 const SearchTab: FC = () => {
   const searchedPlace = useInput('')
   const searchRadius = useInput('')
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const [selectedFilters, setSelectedFilters] = useState<
+    Record<string, string[]>
+  >({})
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [lat, lon] = useAppSelector((store) => store.map.searchCenter)
+  const dispatch = useAppDispatch()
 
-  const handleClick = (filter: Filter) => () => {
-    setSelectedFilters((prev) =>
-      prev.includes(filter.id)
-        ? prev.filter((f) => f !== filter.id)
-        : [...prev, filter.id]
-    )
+  const handleFilterClick = (filter: Filter) => () => {
+    setSelectedFilters((prev) => {
+      if (prev[filter.id]) {
+        const newState = { ...prev }
+        delete newState[filter.id]
+        return newState
+      }
+      return { ...prev, [filter.id]: filter.overpassCategories }
+    })
   }
 
-  const handleSearch = () => {
-    //TODO: сделать
+  const handleSearch = async () => {
+    setIsLoading(true)
+    try {
+      if (searchedPlace.value) {
+        let response = await searchByAddres(
+          searchedPlace.value,
+          lat,
+          lon,
+          Number(searchRadius.value)
+        )
+        response = response.filter((place) =>
+          place.address.includes('Беларусь')
+        )
+        dispatch(setSearchedAddresses(response))
+        dispatch(setSearchedPlaces(null))
+      } else {
+        const filtersArray: string[] = []
+        for (const id in selectedFilters) {
+          filtersArray.push(...selectedFilters[id])
+        }
+        let response = await searchPlaces(
+          searchedPlace.value,
+          filtersArray,
+          Number(searchRadius.value),
+          lat,
+          lon
+        )
+        response = response.filter((place) => place.title !== 'Неизвестно')
+        dispatch(setSearchedPlaces(response.slice(0, 200)))
+        dispatch(setSearchedAddresses(null))
+      }
+      dispatch(setSearchRadius(Number(searchRadius.value)))
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -32,12 +83,12 @@ const SearchTab: FC = () => {
         <h2>Искать:</h2>
         <ul className={style.filterContainer}>
           {filters.map((filter) => {
-            const isSelected = selectedFilters.includes(filter.id)
+            const isSelected = filter.id in selectedFilters
             return (
               <li
                 key={filter.id}
                 className={`${style.filter} ${isSelected && style.selected}`}
-                onClick={handleClick(filter)}
+                onClick={handleFilterClick(filter)}
               >
                 <img
                   className={style.icon}
@@ -61,8 +112,16 @@ const SearchTab: FC = () => {
           <span>км</span>
         </div>
       </div>
-      <button className={style.searchBtn} onClick={handleSearch}>
-        <img src={searchbtnOff} alt="search button" />
+      <button
+        className={style.searchBtn}
+        onClick={handleSearch}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Loader size="s" color="white" />
+        ) : (
+          <img src={searchbtnOff} alt="search button" />
+        )}
       </button>
     </div>
   )

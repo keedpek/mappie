@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import imgPlaceholder from '@/assets/placePhotoPlaceholder.webp'
 import { bookmarkOn, pannelLeftArrow } from '@/constants/icons'
 import { removeFromFavourites } from '@/store/slices/favouritesSlice'
 import { setSelectedPlace } from '@/store/slices/navigationSlice'
@@ -31,7 +32,11 @@ const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
     <div className={style.container}>
       <div className={style.heading}>
         <div className={style.imgContainer}>
-          <img className={style.img} src={place.img} alt="place img" />
+          <img
+            className={style.img}
+            src={place.img || imgPlaceholder}
+            alt="place img"
+          />
         </div>
         <h2 className={style.title}>{place.title}</h2>
       </div>

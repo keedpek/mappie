@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { icons } from '@/constants/filters'
+import imgPlaceholder from '@/assets/placePhotoPlaceholder.webp'
 import {
   bookmarkOff,
   bookmarkSaved,
@@ -11,8 +11,10 @@ import {
   addFavouritePlace,
   removeFromFavourites,
 } from '@/store/slices/favouritesSlice'
+import { setRoutePlace } from '@/store/slices/mapSlice'
 import { setSelectedPlace } from '@/store/slices/navigationSlice'
 import PlaceObj from '@/types/PlaceObj'
+import { findCategoryImg } from '@/utils/findCategoryImg'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import {
   addFavouritePlaceToStorage,
@@ -43,6 +45,10 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
     }
   }
 
+  const handleRouteClick = () => {
+    dispatch(setRoutePlace(placeInfo.coordinates))
+  }
+
   const handleCloseBtnClick = () => {
     dispatch(setSelectedPlace(null))
   }
@@ -55,12 +61,14 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
       </button>
       <div className={style.container}>
         <div className={style.imgContainer}>
-          <img className={style.img} src={placeInfo.img} alt="place img" />
+          <img
+            className={style.img}
+            src={placeInfo.img || imgPlaceholder}
+            alt="place img"
+          />
         </div>
         <div className={style.typeIcons}>
-          {/* TODO: динамические типы реального места */}
-          <img src={icons.architecture} alt="type" />
-          <img src={icons.history} alt="type" />
+          <img src={findCategoryImg(placeInfo)} alt="type" />
         </div>
         <h2 className={style.title}>{placeInfo.title}</h2>
         <div className={style.description}>
@@ -77,7 +85,10 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
             />
             <span>{isFavourite ? 'Сохранено' : 'Сохранить'}</span>
           </button>
-          <button className={`${style.btn} ${style.path}`}>
+          <button
+            className={`${style.btn} ${style.path}`}
+            onClick={handleRouteClick}
+          >
             <img src={placemark} alt="navigate" />
             <span>Маршрут</span>
           </button>

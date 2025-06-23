@@ -27,7 +27,9 @@ const FavouritesTab: FC = () => {
   return selectedPlace ? (
     <SelectedPlaceCard
       placeInfo={selectedPlace}
-      isFavourite={favPlaces.includes(selectedPlace)}
+      isFavourite={favPlaces
+        .map((place) => place.id)
+        .includes(selectedPlace.id)}
     />
   ) : (
     <FavouritesList places={favPlaces} />

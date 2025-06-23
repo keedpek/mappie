@@ -99,5 +99,11 @@ h2 {
   border: none;
   background-color: #5e7bc7;
   padding: 10px;
+  min-height: 50px;
   border-radius: 10px;
+  position: relative;
+}
+
+.searchBtn:disabled {
+  cursor: not-allowed;
 }

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { navigateToMain } from '@/utils/navigate'
-
 import style from './ErrorBoundary.module.css'
 
 interface ErrorBoundaryProps {
@@ -30,6 +28,10 @@ class ErrorBoundary extends React.Component<
     console.error('Ошибка: ', error, 'Информация: ', errorInfo)
   }
 
+  navigateToMain = () => {
+    window.location.href = '/'
+  }
+
   handleReload = () => {
     this.setState({ hasError: false })
   }
@@ -42,7 +44,7 @@ class ErrorBoundary extends React.Component<
           <div className={style.btnContainer}>
             <button
               className={`${style.btn} ${style.toMain}`}
-              onClick={navigateToMain}
+              onClick={this.navigateToMain}
             >
               Вернуться на главную
             </button>
