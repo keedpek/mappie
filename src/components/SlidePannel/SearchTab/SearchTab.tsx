@@ -13,6 +13,7 @@ import Filter from '@/types/Filter'
 import Loader from '@/UI/Loader/Loader'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import useInput from '@/utils/hooks/useInput'
+import { useToast } from '@/utils/hooks/useToast'
 
 import style from './SearchTab.module.css'
 
@@ -25,6 +26,7 @@ const SearchTab: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [lat, lon] = useAppSelector((store) => store.map.searchCenter)
   const dispatch = useAppDispatch()
+  const { addToast } = useToast()
 
   const handleFilterClick = (filter: Filter) => () => {
     setSelectedFilters((prev) => {
@@ -37,6 +39,7 @@ const SearchTab: FC = () => {
     })
   }
 
+  //TODO: вынести в отдельные функции
   const handleSearch = async () => {
     setIsLoading(true)
     try {
@@ -65,12 +68,15 @@ const SearchTab: FC = () => {
           lon
         )
         response = response.filter((place) => place.title !== 'Неизвестно')
+        if (response.length === 0) {
+          addToast('Места не найдены', 'error')
+        }
         dispatch(setSearchedPlaces(response.slice(0, 200)))
         dispatch(setSearchedAddresses(null))
       }
       dispatch(setSearchRadius(Number(searchRadius.value)))
     } catch (error) {
-      console.log(error)
+      addToast(error.message, 'error')
     } finally {
       setIsLoading(false)
     }

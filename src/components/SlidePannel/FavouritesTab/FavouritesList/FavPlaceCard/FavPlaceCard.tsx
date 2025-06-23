@@ -7,6 +7,7 @@ import { setSelectedPlace } from '@/store/slices/navigationSlice'
 import PlaceObj from '@/types/PlaceObj'
 import { descriptionClipping } from '@/utils/descriptionClipping'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
+import { useToast } from '@/utils/hooks/useToast'
 import { removePlaceFromStorage } from '@/utils/localStorageHandler'
 
 import style from './FavPlaceCard.module.css'
@@ -18,10 +19,12 @@ interface FavPlaceCardProps {
 const FavPlaceCard: FC<FavPlaceCardProps> = ({ place }) => {
   const dispatch = useAppDispatch()
   const user = useAppSelector((store) => store.user.email)
+  const { addToast } = useToast()
 
   const handleRemoveClick = () => {
     removePlaceFromStorage(place, user)
     dispatch(removeFromFavourites(place))
+    addToast('Место убрано из избранных', 'success')
   }
 
   const handlePlaceSelect = () => {

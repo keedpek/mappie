@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { YMapControl, YMapControls, YMapFeature } from '@/lib/ymaps'
 import { buildRoute } from '@/utils/buildRoute'
+import { useToast } from '@/utils/hooks/useToast'
 
 import style from './Route.module.css'
 
@@ -16,6 +17,7 @@ const Route: FC<RouteProps> = ({ from, to }) => {
   const [routeType, setRouteType] = useState<RouteOptions['type']>('driving')
   const [routeDuration, setRouteDuration] = useState<number>(0)
   const [routeLength, setRouteLength] = useState<number>(0)
+  const { addToast } = useToast()
 
   useEffect(() => {
     buildRoute(from, to, routeType).then(handleNewRoute)
@@ -29,7 +31,7 @@ const Route: FC<RouteProps> = ({ from, to }) => {
 
   const handleNewRoute = (newRoute: RouteFeature) => {
     if (!newRoute) {
-      alert('Маршрут не найден')
+      addToast('Маршрут не найден', 'error')
       setRoute(null)
       return
     }
