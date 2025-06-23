@@ -15,13 +15,11 @@ const AddresMarker: FC<AddresMarkerProps> = ({ place }) => {
     <YMapMarker coordinates={place.coordinates}>
       <div className={style.markerContainer}>
         <div className={`${style.text}`}>{place.title}</div>
-        <div>
-          <img
-            className={style.categoryImg}
-            src={placemark.replace('white', 'tomato')}
-            alt="placemark"
-          />
-        </div>
+        <img
+          className={style.categoryImg}
+          src={placemark.replace('white', 'tomato')}
+          alt="placemark"
+        />
       </div>
     </YMapMarker>
   )

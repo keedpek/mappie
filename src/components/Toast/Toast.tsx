@@ -1,20 +1,22 @@
 import { FC } from 'react'
+import { createPortal } from 'react-dom'
 
-import { useToast } from '@/context/ToastContext'
+import { useToast } from '@/utils/hooks/useToast'
 
 import style from './Toast.module.css'
 
 const Toast: FC = () => {
   const { toastsList } = useToast()
 
-  return (
+  return createPortal(
     <div className={style.toastContainer}>
       {toastsList.map((toast) => (
         <div key={toast.id} className={`${style.toast} ${style[toast.type]}`}>
           <p>{toast.message}</p>
         </div>
       ))}
-    </div>
+    </div>,
+    document.body
   )
 }
 

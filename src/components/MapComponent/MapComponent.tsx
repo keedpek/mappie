@@ -47,7 +47,7 @@ const MapComponent: FC = () => {
   useEffect(() => {
     getGeolocation()
     watchGeolocation()
-    if (JSON.stringify(searchCenter) !== JSON.stringify(coords)) {
+    if (coords && JSON.stringify(searchCenter) !== JSON.stringify(coords)) {
       dispatch(setSearchCenter(coords))
     }
     return clearWatch

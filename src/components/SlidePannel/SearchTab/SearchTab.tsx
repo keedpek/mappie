@@ -115,7 +115,7 @@ const SearchTab: FC = () => {
             type="number"
             {...searchRadius}
           />
-          <span>км</span>
+          <span>м</span>
         </div>
       </div>
       <button

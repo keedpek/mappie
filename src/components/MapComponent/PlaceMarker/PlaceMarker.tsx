@@ -27,13 +27,11 @@ const PlaceMarker: FC<PlaceMarkerProps> = ({ place }) => {
     <YMapMarker coordinates={place.coordinates}>
       <div className={style.markerContainer} onClick={handleClick}>
         <div className={`${style.text}`}>{place.title}</div>
-        <div>
-          <img
-            className={style.categoryImg}
-            src={findCategoryImg(place)}
-            alt="category"
-          />
-        </div>
+        <img
+          className={style.categoryImg}
+          src={findCategoryImg(place)}
+          alt="category"
+        />
       </div>
     </YMapMarker>
   )

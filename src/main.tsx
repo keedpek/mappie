@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App.tsx'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx'
+import Toast from './components/Toast/Toast.tsx'
 import { ToastProvider } from './context/Toast/ToastContextProvider.tsx'
 import { store } from './store/store.ts'
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <ErrorBoundary>
           <BrowserRouter>
             <App />
+            <Toast />
           </BrowserRouter>
         </ErrorBoundary>
       </ToastProvider>

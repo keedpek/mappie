@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 
-import Toast from '@/components/Toast/Toast'
 import { IToast } from '@/types/IToast'
 import { IToastContext } from '@/types/IToastContext'
 import { IToastProviderProps } from '@/types/IToastProviderProps'
@@ -41,10 +40,5 @@ export const ToastProvider: FC<IToastProviderProps> = ({ children }) => {
     })
   }, [toastsList])
 
-  return (
-    <ToastContext.Provider value={value}>
-      {children}
-      <Toast />
-    </ToastContext.Provider>
-  )
+  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
 }
