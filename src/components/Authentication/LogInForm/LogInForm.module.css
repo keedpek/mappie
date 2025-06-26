@@ -57,3 +57,45 @@
   opacity: 0.8;
   cursor: not-allowed;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container h1 {
+    font-size: 1.5rem;
+  }
+
+  .input {
+    font-size: 1rem;
+  }
+
+  .submitBtn {
+    font-size: 1rem;
+  }
+
+  .registerLink {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10%;
+  }
+
+  .container h1 {
+    font-size: 1.5rem;
+  }
+
+  .input {
+    font-size: 1rem;
+  }
+
+  .submitBtn {
+    font-size: 1rem;
+  }
+}
