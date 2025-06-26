@@ -1,16 +1,14 @@
 import { FC } from 'react'
+import { Marker } from 'react-leaflet'
 
-import { YMapMarker } from '@/lib/ymaps'
 import {
   setActiveTab,
   setPannelState,
   setSelectedPlace,
 } from '@/store/slices/navigationSlice'
 import PlaceObj from '@/types/PlaceObj'
-import { findCategoryImg } from '@/utils/findCategoryImg'
+import { createLeafletCategoryIcon } from '@/utils/findCategoryImg'
 import { useAppDispatch } from '@/utils/hooks/reduxHooks'
-
-import style from './Marker.module.css'
 
 interface PlaceMarkerProps {
   place: PlaceObj
@@ -24,16 +22,13 @@ const PlaceMarker: FC<PlaceMarkerProps> = ({ place }) => {
     dispatch(setActiveTab('favourites'))
   }
   return (
-    <YMapMarker coordinates={place.coordinates}>
-      <div className={style.markerContainer} onClick={handleClick}>
-        <div className={`${style.text}`}>{place.title}</div>
-        <img
-          className={style.categoryImg}
-          src={findCategoryImg(place)}
-          alt="category"
-        />
-      </div>
-    </YMapMarker>
+    <Marker
+      position={place.coordinates}
+      icon={createLeafletCategoryIcon(place.category)}
+      eventHandlers={{
+        click: handleClick,
+      }}
+    ></Marker>
   )
 }
 

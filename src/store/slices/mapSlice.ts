@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LngLat } from '@yandex/ymaps3-types'
+import { LatLngExpression } from 'leaflet'
 
 import { DEFAULT_LOCATION } from '@/constants/map'
 import AddressObj from '@/types/AddressObj'
@@ -8,15 +8,15 @@ import PlaceObj from '@/types/PlaceObj'
 interface MapState {
   searchedPlaces: PlaceObj[] | null
   searchedAddresses: AddressObj[] | null
-  searchCenter: LngLat
+  searchCenter: LatLngExpression
   searchRadius: number
-  routePlace: LngLat
+  routePlace: LatLngExpression
 }
 
 const initialState: MapState = {
   searchedPlaces: null,
   searchedAddresses: null,
-  searchCenter: DEFAULT_LOCATION,
+  searchCenter: DEFAULT_LOCATION.center,
   searchRadius: 0,
   routePlace: null,
 }
@@ -34,13 +34,13 @@ export const mapSlice = createSlice({
     ) => {
       state.searchedAddresses = action.payload
     },
-    setSearchCenter: (state, action: PayloadAction<LngLat>) => {
+    setSearchCenter: (state, action: PayloadAction<LatLngExpression>) => {
       state.searchCenter = action.payload
     },
     setSearchRadius: (state, action: PayloadAction<number>) => {
       state.searchRadius = action.payload
     },
-    setRoutePlace: (state, action: PayloadAction<LngLat>) => {
+    setRoutePlace: (state, action: PayloadAction<LatLngExpression>) => {
       state.routePlace = action.payload
     },
   },

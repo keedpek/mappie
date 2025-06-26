@@ -1,19 +1,20 @@
+import { LatLngExpression } from 'leaflet'
+
 import AddressObj from '@/types/AddressObj'
 import PlaceObj from '@/types/PlaceObj'
 import { buildOverpassQuery } from '@/utils/buildOverpassQuery'
 import { coordsToFixed } from '@/utils/coordsToFixed'
 import { getCategoryByTags } from '@/utils/getCategoryByTags'
 
-import { $overpass, $yandexGeocoder } from '.'
+import { $OSRM, $overpass, $yandexGeocoder } from '.'
 
 export const searchPlaces = async (
   search: string,
   categories: string[],
   radius: number,
-  lat: number,
-  lon: number
+  center: LatLngExpression
 ): Promise<PlaceObj[]> => {
-  const query = buildOverpassQuery(search, categories, radius, lat, lon)
+  const query = buildOverpassQuery(search, categories, radius, center)
 
   const response = await $overpass.post('/interpreter', query, {
     headers: {
@@ -21,38 +22,37 @@ export const searchPlaces = async (
     },
   })
 
-  return response.data.elements.map(
-    (place): PlaceObj => ({
-      id: place.id + '',
+  const places = response.data.elements.map(
+    ({ id, tags, lat, lon }): PlaceObj => ({
+      id: id + '',
       img:
-        place.tags['image'] || place.tags['wikidata']
-          ? `https://commons.wikimedia.org/wiki/Special:FilePath/${place.tags['wikidata']}`
+        tags['image'] || tags['wikidata']
+          ? `https://commons.wikimedia.org/wiki/Special:FilePath/${tags['wikidata']}`
           : null,
-      title: place.tags.name || 'Неизвестно',
-      description:
-        place.tags.description || place.tags.addr?.street || 'Без описания',
-      adress: place.tags.addr || 'Неизвестно',
-      coordinates: coordsToFixed([place.lon, place.lat]),
-      category: getCategoryByTags(place.tags),
+      title: tags.name || 'Неизвестно',
+      description: tags.description || tags.addr?.street || 'Без описания',
+      adress: tags.addr || 'Неизвестно',
+      coordinates: coordsToFixed([lat, lon]),
+      category: getCategoryByTags(tags),
     })
   )
+  return places.filter(({ title }) => title !== 'Неизвестно')
 }
 
 export const searchByAddres = async (
   searchQuery: string,
-  lat: number,
-  lon: number,
+  center: LatLngExpression,
   radius: number
 ): Promise<AddressObj[]> => {
   let queryParams = `/?apikey=${import.meta.env.VITE_YMAP_API_KEY}&geocode=${searchQuery.split(' ').join('+')}`
-  if (radius) {
+  if (radius && Array.isArray(center)) {
     const spn = (radius * 2) / 1000 + ''
+    const [lat, lon] = center
     queryParams += `&rspn=1&ll=${lat},${lon}&spn${spn},${spn}`
   }
   queryParams += '&format=json'
-  const res = await $yandexGeocoder.get(queryParams)
-  const places = res.data.response.GeoObjectCollection.featureMember
-  return places.map(
+  const response = await $yandexGeocoder.get(queryParams)
+  const places = response.data.response.GeoObjectCollection.featureMember.map(
     (place): AddressObj => ({
       id: place.GeoObject.Point.pos,
       title: place.GeoObject.name,
@@ -60,7 +60,29 @@ export const searchByAddres = async (
         place.GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted,
       coordinates: place.GeoObject.Point.pos
         .split(' ')
+        .reverse()
         .map((coord) => Number(coord)),
     })
   )
+  return places.filter((place) => place.address.includes('Беларусь'))
+}
+
+export const getOSRMRoute = async (
+  from: LatLngExpression,
+  to: LatLngExpression
+) => {
+  if (Array.isArray(from) && Array.isArray(to)) {
+    const [startLat, startLng] = from
+    const [endLat, endLng] = to
+
+    const response = await $OSRM.get(
+      `/driving/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson`
+    )
+
+    return {
+      route: response.data.routes[0].geometry.coordinates,
+      duration: response.data.routes[0].duration,
+      distance: response.data.routes[0].distance,
+    }
+  }
 }

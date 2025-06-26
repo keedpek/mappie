@@ -24,7 +24,7 @@ const SearchTab: FC = () => {
     Record<string, string[]>
   >({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [lat, lon] = useAppSelector((store) => store.map.searchCenter)
+  const center = useAppSelector((store) => store.map.searchCenter)
   const dispatch = useAppDispatch()
   const { addToast } = useToast()
 
@@ -39,20 +39,18 @@ const SearchTab: FC = () => {
     })
   }
 
-  //TODO: вынести в отдельные функции
   const handleSearch = async () => {
     setIsLoading(true)
     try {
       if (searchedPlace.value) {
-        let response = await searchByAddres(
+        const response = await searchByAddres(
           searchedPlace.value,
-          lat,
-          lon,
+          center,
           Number(searchRadius.value)
         )
-        response = response.filter((place) =>
-          place.address.includes('Беларусь')
-        )
+        if (response.length === 0) {
+          addToast('Места не найдены', 'error')
+        }
         dispatch(setSearchedAddresses(response))
         dispatch(setSearchedPlaces(null))
       } else {
@@ -60,14 +58,12 @@ const SearchTab: FC = () => {
         for (const id in selectedFilters) {
           filtersArray.push(...selectedFilters[id])
         }
-        let response = await searchPlaces(
+        const response = await searchPlaces(
           searchedPlace.value,
           filtersArray,
           Number(searchRadius.value),
-          lat,
-          lon
+          center
         )
-        response = response.filter((place) => place.title !== 'Неизвестно')
         if (response.length === 0) {
           addToast('Места не найдены', 'error')
         }

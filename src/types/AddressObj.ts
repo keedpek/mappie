@@ -1,8 +1,8 @@
-import { LngLat } from '@yandex/ymaps3-types'
+import { LatLngExpression } from 'leaflet'
 
 export default interface AddressObj {
   id: string
   title: string
   address: string
-  coordinates: LngLat
+  coordinates: LatLngExpression
 }

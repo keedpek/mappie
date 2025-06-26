@@ -1,22 +1,26 @@
+import { LatLngExpression } from 'leaflet'
+
 export const buildOverpassQuery = (
   searchQuery: string,
   categories: string[],
   radius: number,
-  lat: number,
-  lon: number
+  center: LatLngExpression
 ): string => {
-  const categoryQuery = categories.length
-    ? `${categories.map((category) => `node[${category}](around:${radius},${lon},${lat});`).join('\n')}`
-    : `node["amenity"](around:${radius},${lon},${lat});\n`
+  if (Array.isArray(center)) {
+    const [lat, lon] = center
+    const categoryQuery = categories.length
+      ? `${categories.map((category) => `node[${category}](around:${radius},${lat},${lon});`).join('\n')}`
+      : `node["amenity"](around:${radius},${lat},${lon});\n`
 
-  const query = `
-  [out:json][timeout:25];
-  (
-    ${categoryQuery}
-  );
-  out body;
-  > ;
-  out skel qt;
-  `
-  return query
+    const query = `
+    [out:json][timeout:25];
+    (
+      ${categoryQuery}
+    );
+    out body;
+    > ;
+    out skel qt;
+    `
+    return query
+  }
 }

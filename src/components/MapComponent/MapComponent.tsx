@@ -1,35 +1,23 @@
-import { FC, useEffect } from 'react'
-import { YMapLocationRequest } from 'ymaps3'
+import 'leaflet/dist/leaflet.css'
 
-import { DEFAULT_LOCATION } from '@/constants/map'
-import {
-  reactify,
-  YMap,
-  YMapDefaultFeaturesLayer,
-  YMapDefaultSchemeLayer,
-} from '@/lib/ymaps'
+import { LatLngExpression } from 'leaflet'
+import { FC, useEffect, useState } from 'react'
+import { Circle, MapContainer, TileLayer } from 'react-leaflet'
+import MarkerClusterGroup from 'react-leaflet-cluster'
+
 import { setSearchCenter } from '@/store/slices/mapSlice'
-import Loader from '@/UI/Loader/Loader'
+import { getCurrentUserPosition } from '@/utils/getCurrentUserPosition'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
-import useGeolocation from '@/utils/hooks/useGeolocation'
+import { useToast } from '@/utils/hooks/useToast'
 
-import style from './MapComponent.module.css'
-import AddresMarker from './PlaceMarker/AddresMarker'
-import PlaceMarker from './PlaceMarker/PlaceMarker'
-import Route from './Route/Route'
-import SearchCircle from './SearchCircle/SearchCircle'
-import UserMarker from './UserMarker/UserMarker'
+import MapCenter from './MapCenter/MapCenter'
+import MapControls from './MapControls/MapControls'
+import AddresMarker from './Markers/AddresMarker'
+import PlaceMarker from './Markers/PlaceMarker'
+import UserMarker from './Markers/UserMarker'
+import PlaceRoute from './PlaceRoute/PlaceRoute'
 
 const MapComponent: FC = () => {
-  const {
-    coords,
-    trackedCoords,
-    error,
-    getGeolocation,
-    watchGeolocation,
-    clearWatch,
-  } = useGeolocation()
-
   const {
     searchedPlaces,
     searchedAddresses,
@@ -38,55 +26,58 @@ const MapComponent: FC = () => {
     routePlace,
   } = useAppSelector((store) => store.map)
   const dispatch = useAppDispatch()
-
-  const location: YMapLocationRequest = {
-    center: trackedCoords ? trackedCoords : DEFAULT_LOCATION,
-    zoom: 15,
-  }
+  const { addToast } = useToast()
+  const [userCoords, setUserCoords] = useState<LatLngExpression>(null)
 
   useEffect(() => {
-    getGeolocation()
-    watchGeolocation()
-    if (coords && JSON.stringify(searchCenter) !== JSON.stringify(coords)) {
-      dispatch(setSearchCenter(coords))
-    }
-    return clearWatch
-  }, [
-    clearWatch,
-    coords,
-    dispatch,
-    getGeolocation,
-    searchCenter,
-    watchGeolocation,
-  ])
-
-  if (!coords || !trackedCoords) {
-    return <Loader size="l" />
-  }
+    getCurrentUserPosition()
+      .then((res) => {
+        setUserCoords(res)
+        dispatch(setSearchCenter(res))
+      })
+      .catch((err) => addToast(err, 'error'))
+  })
 
   return (
-    <div className={`${style.container}`}>
-      <YMap location={reactify.useDefault(location)}>
-        <YMapDefaultSchemeLayer />
-        <YMapDefaultFeaturesLayer />
+    <MapContainer center={searchCenter} zoom={16} zoomControl={false}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <MapCenter center={userCoords} />
+      <MapControls />
 
-        {!error && trackedCoords && (
-          <UserMarker coords={trackedCoords || DEFAULT_LOCATION} />
-        )}
-        <SearchCircle radius={searchRadius} center={searchCenter} />
+      {userCoords && <UserMarker coords={userCoords} />}
+
+      <MarkerClusterGroup>
         {searchedPlaces &&
           searchedPlaces.map((place) => (
             <PlaceMarker key={place.id} place={place} />
           ))}
+      </MarkerClusterGroup>
+
+      <MarkerClusterGroup>
         {searchedAddresses &&
-          searchedAddresses.map((address) => (
-            <AddresMarker key={address.id} place={address} />
+          searchedAddresses.map((place) => (
+            <AddresMarker key={place.id} place={place} />
           ))}
-        {routePlace && (
-          <Route from={[27.4894325, 53.9137759]} to={routePlace} />
-        )}
-      </YMap>
-    </div>
+      </MarkerClusterGroup>
+
+      {searchRadius && (
+        <Circle
+          center={searchCenter}
+          radius={searchRadius}
+          pathOptions={{
+            fillColor: '#5E7BC73A',
+            color: '#5E7BC753',
+            fillOpacity: 1,
+            dashArray: '50, 30',
+          }}
+        />
+      )}
+
+      {routePlace && <PlaceRoute from={userCoords} to={routePlace} />}
+    </MapContainer>
   )
 }
 

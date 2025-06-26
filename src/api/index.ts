@@ -7,3 +7,7 @@ export const $overpass = axios.create({
 export const $yandexGeocoder = axios.create({
   baseURL: 'https://geocode-maps.yandex.ru/1.x',
 })
+
+export const $OSRM = axios.create({
+  baseURL: 'https://router.project-osrm.org/route/v1',
+})

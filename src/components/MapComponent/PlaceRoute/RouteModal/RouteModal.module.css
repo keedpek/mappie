@@ -1,0 +1,43 @@
+.modalContainer {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background-color: #fff;
+  box-shadow: 0px 4px 14px 0px #2c2c2c17;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoContainer h2 {
+  font-family: Mont;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 132%;
+  letter-spacing: 0%;
+  color: #405f7b;
+}
+
+.infoContainer p {
+  font-family: Mont;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 135%;
+  letter-spacing: 0%;
+  color: #405f7b;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  border: none;
+}

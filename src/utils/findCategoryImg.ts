@@ -1,7 +1,15 @@
-import { filters } from '@/constants/filters'
-import PlaceObj from '@/types/PlaceObj'
+import { Icon } from 'leaflet'
 
-export const findCategoryImg = (place: PlaceObj) => {
-  const filter = filters.find((filter) => filter.id === place.category)
+import { filters } from '@/constants/filters'
+
+export const findCategoryImg = (category: string) => {
+  const filter = filters.find(({ id }) => id === category)
   return filter ? filter.icon : filters.find((f) => f.id === 'Other').icon
+}
+
+export const createLeafletCategoryIcon = (category: string) => {
+  return new Icon({
+    iconUrl: findCategoryImg(category),
+    iconSize: [30, 30],
+  })
 }
