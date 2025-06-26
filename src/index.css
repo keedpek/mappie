@@ -33,3 +33,8 @@ button:hover {
 button:focus {
   outline: 3px solid #808080;
 }
+
+.leaflet-container {
+  height: 100vh;
+  width: 100%;
+}

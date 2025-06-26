@@ -2,6 +2,7 @@ import bookmarkOff from '@/assets/bookmarkOff.svg'
 import bookmarkOn from '@/assets/bookmarkOn.svg'
 import bookmarkSaved from '@/assets/bookmarkSaved.svg'
 import googleIcon from '@/assets/google-icon-logo.svg'
+import locationBtn from '@/assets/locationbtn.svg'
 import logIn from '@/assets/logIn.svg'
 import mappieLogo from '@/assets/mappieLogo.svg'
 import pannelLeftArrow from '@/assets/pannelLeftArrow.svg'
@@ -16,6 +17,7 @@ export {
   bookmarkOn,
   bookmarkSaved,
   googleIcon,
+  locationBtn,
   logIn,
   mappieLogo,
   pannelLeftArrow,

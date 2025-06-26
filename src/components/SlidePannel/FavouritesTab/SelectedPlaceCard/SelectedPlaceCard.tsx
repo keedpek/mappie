@@ -72,7 +72,7 @@ const SelectedPlaceCard: FC<SelectedPlaceCardProps> = ({
           />
         </div>
         <div className={style.typeIcons}>
-          <img src={findCategoryImg(placeInfo)} alt="type" />
+          <img src={findCategoryImg(placeInfo.category)} alt="type" />
         </div>
         <h2 className={style.title}>{placeInfo.title}</h2>
         <div className={style.description}>
