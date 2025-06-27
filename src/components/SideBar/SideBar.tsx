@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
   bookmarkOff,
@@ -11,20 +11,21 @@ import {
 import { useAppSelector } from '@/utils/hooks/reduxHooks'
 import { useAuth } from '@/utils/hooks/useAuth'
 import { useTabToggle } from '@/utils/hooks/useTabToggle'
+import { useToast } from '@/utils/hooks/useToast'
 
 import style from './SideBar.module.css'
 
 const SideBar: FC = () => {
-  const [logoutError, setLogoutError] = useState<string>('')
   const activeTab = useAppSelector((store) => store.navigation.activeTab)
   const tabToggle = useTabToggle()
   const { logout } = useAuth()
+  const { addToast } = useToast()
 
   const handleLogoutClick = async () => {
     try {
       logout()
     } catch (error) {
-      setLogoutError(error.message)
+      addToast(error.message, 'error')
     }
   }
 
@@ -71,8 +72,6 @@ const SideBar: FC = () => {
       <button className={style.loginBtn} onClick={handleLogoutClick}>
         <img src={logIn} alt="login" />
       </button>
-      {/* заменить на тост */}
-      {logoutError && <p>{logoutError}</p>}
     </aside>
   )
 }
