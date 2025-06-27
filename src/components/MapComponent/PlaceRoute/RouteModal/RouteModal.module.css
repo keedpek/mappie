@@ -8,7 +8,7 @@
   box-shadow: 0px 4px 14px 0px #2c2c2c17;
   padding: 20px;
   border-radius: 10px;
-  z-index: 1000;
+  z-index: 400;
 }
 
 .infoContainer {
@@ -40,4 +40,34 @@
   top: 10px;
   background-color: transparent;
   border: none;
+}
+
+@media (max-width: 768px) {
+  .modalContainer {
+    top: 30px;
+    right: 30px;
+  }
+
+  .infoContainer h2 {
+    font-size: 20px;
+  }
+
+  .infoContainer p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    top: 10px;
+    right: 10px;
+  }
+
+  .infoContainer h2 {
+    font-size: 16px;
+  }
+
+  .infoContainer p {
+    font-size: 10px;
+  }
 }
