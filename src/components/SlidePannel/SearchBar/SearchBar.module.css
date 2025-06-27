@@ -15,8 +15,15 @@
   border: none;
   outline: none;
   font-size: 1rem;
+  width: 80%;
 }
 
 .input::placeholder {
   font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px 10px;
+  }
 }

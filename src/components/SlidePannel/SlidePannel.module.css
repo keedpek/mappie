@@ -9,7 +9,6 @@
   position: absolute;
   box-shadow: 1px 0px 20px 0px #0000001a;
   top: 0;
-  /* TODO: мб как-то не так костыльно */
   left: 99px;
   transition:
     transform 0.5s ease,
@@ -58,4 +57,11 @@
 .closeBtn::after {
   bottom: -5px;
   left: -10px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 120px);
+    left: 69px;
+  }
 }

@@ -63,3 +63,19 @@
 .rotate {
   rotate: 180deg;
 }
+
+@media (max-width: 480px) {
+  .heading {
+    gap: 10px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .img {
+    height: 83px;
+    width: 100px;
+  }
+}

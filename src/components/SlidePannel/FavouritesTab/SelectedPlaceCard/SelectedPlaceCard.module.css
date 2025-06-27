@@ -86,7 +86,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 40%;
+
+  min-width: 40%;
   padding: 10px;
   font-weight: 700;
   font-size: 14px;
@@ -111,4 +112,55 @@
   border: none;
   background-color: #5e7bc7;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .imgContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .img {
+    aspect-ratio: 16/9;
+    width: 70%;
+  }
+
+  .container {
+    height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .img {
+    aspect-ratio: 4/3;
+    width: 100%;
+  }
+
+  .btnContainer {
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 70%;
+  }
+
+  .typeIcons img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .description {
+    max-height: 50px;
+    height: 50px;
+  }
 }
