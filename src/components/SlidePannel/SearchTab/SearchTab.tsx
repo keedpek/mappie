@@ -5,6 +5,7 @@ import SearchBar from '@/components/SlidePannel/SearchBar/SearchBar'
 import { filters } from '@/constants/filters'
 import { searchbtnOff } from '@/constants/icons'
 import {
+  setMapCenter,
   setSearchedAddresses,
   setSearchedPlaces,
   setSearchRadius,
@@ -71,6 +72,7 @@ const SearchTab: FC = () => {
         dispatch(setSearchedAddresses(null))
       }
       dispatch(setSearchRadius(Number(searchRadius.value)))
+      dispatch(setMapCenter(center))
     } catch (error) {
       addToast(error.message, 'error')
     } finally {

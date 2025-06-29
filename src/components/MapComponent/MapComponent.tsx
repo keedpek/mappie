@@ -23,6 +23,7 @@ const MapComponent: FC = () => {
     searchedPlaces,
     searchedAddresses,
     searchCenter,
+    mapCenter,
     searchRadius,
     routePlace,
   } = useAppSelector((store) => store.map)
@@ -45,7 +46,7 @@ const MapComponent: FC = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MapCenter center={userCoords} />
+      <MapCenter center={mapCenter} />
       <MapControls />
 
       {userCoords && <UserMarker coords={userCoords} />}

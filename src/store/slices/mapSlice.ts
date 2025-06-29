@@ -9,6 +9,7 @@ interface MapState {
   searchedPlaces: IPlaceObj[] | null
   searchedAddresses: IAddressObj[] | null
   searchCenter: LatLngExpression
+  mapCenter: LatLngExpression
   searchRadius: number
   routePlace: LatLngExpression
 }
@@ -17,6 +18,7 @@ const initialState: MapState = {
   searchedPlaces: null,
   searchedAddresses: null,
   searchCenter: DEFAULT_LOCATION.center,
+  mapCenter: DEFAULT_LOCATION.center,
   searchRadius: 0,
   routePlace: null,
 }
@@ -37,6 +39,9 @@ export const mapSlice = createSlice({
     setSearchCenter: (state, action: PayloadAction<LatLngExpression>) => {
       state.searchCenter = action.payload
     },
+    setMapCenter: (state, action: PayloadAction<LatLngExpression>) => {
+      state.mapCenter = action.payload
+    },
     setSearchRadius: (state, action: PayloadAction<number>) => {
       state.searchRadius = action.payload
     },
@@ -50,6 +55,7 @@ export const {
   setSearchedPlaces,
   setSearchedAddresses,
   setSearchCenter,
+  setMapCenter,
   setSearchRadius,
   setRoutePlace,
 } = mapSlice.actions
