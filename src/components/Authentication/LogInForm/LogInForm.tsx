@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { object, ObjectSchema, string } from 'yup'
 
 import { REGISTRATION_ROUTE } from '@/constants/routes'
-import { LogInFormData } from '@/types/authentication'
+import { ILogInFormData } from '@/types/Authentication/ILogInFormData'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/formatAuthError'
 import { useAuth } from '@/utils/hooks/useAuth'
@@ -13,7 +13,7 @@ import { useToast } from '@/utils/hooks/useToast'
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './LogInForm.module.css'
 
-const logInSchema: ObjectSchema<LogInFormData> = object({
+const logInSchema: ObjectSchema<ILogInFormData> = object({
   email: string()
     .email('Некорректный адрес почты')
     .required('Почта является обязательным полем'),
@@ -21,7 +21,7 @@ const logInSchema: ObjectSchema<LogInFormData> = object({
 })
 
 const LogInForm: FC = () => {
-  const { register, handleSubmit, formState } = useForm<LogInFormData>({
+  const { register, handleSubmit, formState } = useForm<ILogInFormData>({
     mode: 'onChange',
     resolver: yupResolver(logInSchema),
   })
@@ -30,7 +30,7 @@ const LogInForm: FC = () => {
   const { loginWithEmailAndPassword } = useAuth()
   const { addToast } = useToast()
 
-  const handleLogin = async (data: LogInFormData) => {
+  const handleLogin = async (data: ILogInFormData) => {
     try {
       setIsLoading(true)
       await loginWithEmailAndPassword(data.email, data.password)

@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LatLngExpression } from 'leaflet'
 
 import { DEFAULT_LOCATION } from '@/constants/map'
-import AddressObj from '@/types/AddressObj'
-import PlaceObj from '@/types/PlaceObj'
+import { IAddressObj } from '@/types/IAddressObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 
 interface MapState {
-  searchedPlaces: PlaceObj[] | null
-  searchedAddresses: AddressObj[] | null
+  searchedPlaces: IPlaceObj[] | null
+  searchedAddresses: IAddressObj[] | null
   searchCenter: LatLngExpression
   searchRadius: number
   routePlace: LatLngExpression
@@ -25,12 +25,12 @@ export const mapSlice = createSlice({
   name: 'map',
   initialState,
   reducers: {
-    setSearchedPlaces: (state, action: PayloadAction<PlaceObj[] | null>) => {
+    setSearchedPlaces: (state, action: PayloadAction<IPlaceObj[] | null>) => {
       state.searchedPlaces = action.payload
     },
     setSearchedAddresses: (
       state,
-      action: PayloadAction<AddressObj[] | null>
+      action: PayloadAction<IAddressObj[] | null>
     ) => {
       state.searchedAddresses = action.payload
     },

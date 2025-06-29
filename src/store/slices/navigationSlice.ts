@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { NavTab } from '@/types/NavTab'
-import PlaceObj from '@/types/PlaceObj'
 
 interface NavigationState {
   activeTab: NavTab
   isPannelOpen: boolean
-  selectedPlace: PlaceObj | null
+  selectedPlace: IPlaceObj | null
 }
 
 const initialState: NavigationState = {
@@ -25,7 +25,7 @@ export const navigationSlice = createSlice({
     setPannelState: (state, action: PayloadAction<boolean>) => {
       state.isPannelOpen = action.payload
     },
-    setSelectedPlace: (state, action: PayloadAction<PlaceObj>) => {
+    setSelectedPlace: (state, action: PayloadAction<IPlaceObj>) => {
       state.selectedPlace = action.payload
     },
   },

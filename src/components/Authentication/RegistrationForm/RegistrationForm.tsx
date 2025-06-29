@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { object, ObjectSchema, ref, string } from 'yup'
 
 import { LOGIN_ROUTE } from '@/constants/routes'
-import { RegistrationFormData } from '@/types/authentication'
+import { IRegistrationFormData } from '@/types/Authentication/IRegistrationFormData'
 import Loader from '@/UI/Loader/Loader'
 import { formatAuthError } from '@/utils/formatAuthError'
 import { useAuth } from '@/utils/hooks/useAuth'
@@ -13,7 +13,7 @@ import { useToast } from '@/utils/hooks/useToast'
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './RegistrationForm.module.css'
 
-const registrationSchema: ObjectSchema<RegistrationFormData> = object({
+const registrationSchema: ObjectSchema<IRegistrationFormData> = object({
   email: string()
     .email('Некорректный адрес почты')
     .required('Почта является обязательным полем'),
@@ -27,7 +27,7 @@ const registrationSchema: ObjectSchema<RegistrationFormData> = object({
 })
 
 const RegistrationForm: FC = () => {
-  const { register, handleSubmit, formState } = useForm<RegistrationFormData>({
+  const { register, handleSubmit, formState } = useForm<IRegistrationFormData>({
     mode: 'onChange',
     resolver: yupResolver(registrationSchema),
   })
@@ -36,7 +36,7 @@ const RegistrationForm: FC = () => {
   const { registerUser } = useAuth()
   const { addToast } = useToast()
 
-  const handleRegistration = async (data: RegistrationFormData) => {
+  const handleRegistration = async (data: IRegistrationFormData) => {
     try {
       setIsLoading(true)
       await registerUser(data.email, data.password)

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import PlaceObj from '@/types/PlaceObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 
 interface FavouritesState {
-  favouritePlaces: PlaceObj[]
+  favouritePlaces: IPlaceObj[]
 }
 
 const initialState: FavouritesState = {
@@ -14,13 +14,13 @@ export const favouritesSlice = createSlice({
   name: 'favourites',
   initialState,
   reducers: {
-    setFavouritePlaces: (state, action: PayloadAction<PlaceObj[]>) => {
+    setFavouritePlaces: (state, action: PayloadAction<IPlaceObj[]>) => {
       state.favouritePlaces = action.payload
     },
-    addFavouritePlace: (state, action: PayloadAction<PlaceObj>) => {
+    addFavouritePlace: (state, action: PayloadAction<IPlaceObj>) => {
       state.favouritePlaces.push(action.payload)
     },
-    removeFromFavourites: (state, action: PayloadAction<PlaceObj>) => {
+    removeFromFavourites: (state, action: PayloadAction<IPlaceObj>) => {
       state.favouritePlaces = state.favouritePlaces.filter(
         (place) => place.id !== action.payload.id
       )
