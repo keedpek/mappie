@@ -13,7 +13,7 @@ import {
 } from '@/store/slices/favouritesSlice'
 import { setRoutePlace } from '@/store/slices/mapSlice'
 import { setSelectedPlace } from '@/store/slices/navigationSlice'
-import PlaceObj from '@/types/PlaceObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { findCategoryImg } from '@/utils/findCategoryImg'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { useToast } from '@/utils/hooks/useToast'
@@ -25,7 +25,7 @@ import {
 import style from './SelectedPlaceCard.module.css'
 
 interface SelectedPlaceCardProps {
-  placeInfo: PlaceObj
+  placeInfo: IPlaceObj
   isFavourite: boolean
 }
 

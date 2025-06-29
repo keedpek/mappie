@@ -6,11 +6,11 @@ import SlidePannel from '@/components/SlidePannel/SlidePannel'
 
 const MainPage: FC = () => {
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <main>
       <SideBar />
       <SlidePannel />
       <MapComponent />
-    </div>
+    </main>
   )
 }
 

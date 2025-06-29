@@ -1,6 +1,6 @@
 import { LatLngExpression } from 'leaflet'
 
-export default interface AddressObj {
+export interface IAddressObj {
   id: string
   title: string
   address: string

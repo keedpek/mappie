@@ -1,3 +1,3 @@
-import PlaceObj from './PlaceObj'
+import { IPlaceObj } from './IPlaceObj'
 
-export type StoredFavPlaces = Record<string, PlaceObj[]>
+export type StoredFavPlaces = Record<string, IPlaceObj[]>

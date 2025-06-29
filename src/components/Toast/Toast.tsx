@@ -10,9 +10,9 @@ const Toast: FC = () => {
 
   return createPortal(
     <div className={style.toastContainer}>
-      {toastsList.map((toast) => (
-        <div key={toast.id} className={`${style.toast} ${style[toast.type]}`}>
-          <p>{toast.message}</p>
+      {toastsList.map(({ id, type, message }) => (
+        <div key={id} className={`${style.toast} ${style[type]}`}>
+          <p>{message}</p>
         </div>
       ))}
     </div>,

@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import routes from '@/constants/routesConfig'
-import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage'
 
 import PrivateRoute from './PrivateRoute'
 
@@ -18,7 +17,6 @@ const AppRouter: FC = () => {
           <Route path={path} Component={component} />
         )
       )}
-      <Route path="*" Component={NotFoundPage} />
     </Routes>
   )
 }

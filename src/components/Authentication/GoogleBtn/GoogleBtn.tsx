@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import { googleIcon } from '@/constants/icons'
-import { formatAuthError } from '@/utils/authErrorsParser'
+import { formatAuthError } from '@/utils/formatAuthError'
 import { useAuth } from '@/utils/hooks/useAuth'
 import { useToast } from '@/utils/hooks/useToast'
 

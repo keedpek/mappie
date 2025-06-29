@@ -22,6 +22,11 @@
   font-family: 'Mont';
 }
 
+main {
+  display: flex;
+  width: 100%;
+}
+
 button {
   cursor: pointer;
 }

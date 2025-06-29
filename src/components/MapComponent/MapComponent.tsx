@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import { Circle, MapContainer, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 
+import { CIRCLE_STYLE } from '@/constants/LeafletStyles/radiusCircleStyle'
 import { setSearchCenter } from '@/store/slices/mapSlice'
 import { getCurrentUserPosition } from '@/utils/getCurrentUserPosition'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
@@ -67,12 +68,7 @@ const MapComponent: FC = () => {
         <Circle
           center={searchCenter}
           radius={searchRadius}
-          pathOptions={{
-            fillColor: '#5E7BC73A',
-            color: '#5E7BC753',
-            fillOpacity: 1,
-            dashArray: '50, 30',
-          }}
+          pathOptions={CIRCLE_STYLE}
         />
       )}
 

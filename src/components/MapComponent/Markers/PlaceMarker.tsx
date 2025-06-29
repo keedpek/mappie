@@ -6,12 +6,12 @@ import {
   setPannelState,
   setSelectedPlace,
 } from '@/store/slices/navigationSlice'
-import PlaceObj from '@/types/PlaceObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { createLeafletCategoryIcon } from '@/utils/findCategoryImg'
 import { useAppDispatch } from '@/utils/hooks/reduxHooks'
 
 interface PlaceMarkerProps {
-  place: PlaceObj
+  place: IPlaceObj
 }
 
 const PlaceMarker: FC<PlaceMarkerProps> = ({ place }) => {

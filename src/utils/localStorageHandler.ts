@@ -1,5 +1,4 @@
-import mock from '@/constants/mock'
-import PlaceObj from '@/types/PlaceObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { StoredFavPlaces } from '@/types/StoredFavPlaces'
 
 const STORAGE_KEY = 'favouritePlaces'
@@ -9,11 +8,11 @@ export const getAllFromStorage = (): StoredFavPlaces => {
   return data ? data : {}
 }
 
-export const getUserStoredFavourites = (email: string): PlaceObj[] => {
+export const getUserStoredFavourites = (email: string): IPlaceObj[] => {
   return getAllFromStorage()[email] || []
 }
 
-export const addFavouritePlaceToStorage = (place: PlaceObj, email: string) => {
+export const addFavouritePlaceToStorage = (place: IPlaceObj, email: string) => {
   const storedPlaces = getAllFromStorage()
   const userFavourites = getUserStoredFavourites(email)
 
@@ -26,7 +25,7 @@ export const addFavouritePlaceToStorage = (place: PlaceObj, email: string) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(storedPlaces))
 }
 
-export const removePlaceFromStorage = (place: PlaceObj, email: string) => {
+export const removePlaceFromStorage = (place: IPlaceObj, email: string) => {
   const storedPlaces = getAllFromStorage()
   let userFavourites = getUserStoredFavourites(email)
   userFavourites = userFavourites.filter((p) => p.id !== place.id)
@@ -34,8 +33,4 @@ export const removePlaceFromStorage = (place: PlaceObj, email: string) => {
   storedPlaces[email] = userFavourites
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(storedPlaces))
-}
-
-export const setMock = () => {
-  localStorage.setItem('favouritePlaces', JSON.stringify(mock))
 }

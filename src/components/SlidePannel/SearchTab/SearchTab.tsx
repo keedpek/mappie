@@ -9,7 +9,7 @@ import {
   setSearchedPlaces,
   setSearchRadius,
 } from '@/store/slices/mapSlice'
-import Filter from '@/types/Filter'
+import { IFilter } from '@/types/IFilter'
 import Loader from '@/UI/Loader/Loader'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import useInput from '@/utils/hooks/useInput'
@@ -28,7 +28,7 @@ const SearchTab: FC = () => {
   const dispatch = useAppDispatch()
   const { addToast } = useToast()
 
-  const handleFilterClick = (filter: Filter) => () => {
+  const handleFilterClick = (filter: IFilter) => () => {
     setSelectedFilters((prev) => {
       if (prev[filter.id]) {
         const newState = { ...prev }

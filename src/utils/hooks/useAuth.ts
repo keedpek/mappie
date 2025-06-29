@@ -16,25 +16,31 @@ export const useAuth = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const loginWithEmailAndPassword = async (email: string, password: string) => {
+  const loginWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
     const response = await signInWithEmailAndPassword(auth, email, password)
     dispatch(setUser({ isAuth: true, email: response.user.email }))
     navigate(MAIN_ROUTE)
   }
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (): Promise<void> => {
     const response = await signInWithPopup(auth, googleProvider)
     dispatch(setUser({ isAuth: true, email: response.user.email }))
     navigate(MAIN_ROUTE)
   }
 
-  const registerUser = async (email: string, password: string) => {
+  const registerUser = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
     const response = await createUserWithEmailAndPassword(auth, email, password)
     dispatch(setUser({ isAuth: true, email: response.user.email }))
     navigate(MAIN_ROUTE)
   }
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     await signOut(auth)
     dispatch(logoutUser())
     navigate(LOGIN_ROUTE)

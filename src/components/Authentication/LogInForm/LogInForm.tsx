@@ -1,19 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { object, string } from 'yup'
+import { object, ObjectSchema, string } from 'yup'
 
 import { REGISTRATION_ROUTE } from '@/constants/routes'
 import { LogInFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
-import { formatAuthError } from '@/utils/authErrorsParser'
+import { formatAuthError } from '@/utils/formatAuthError'
 import { useAuth } from '@/utils/hooks/useAuth'
 import { useToast } from '@/utils/hooks/useToast'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './LogInForm.module.css'
 
-const logInSchema = object({
+const logInSchema: ObjectSchema<LogInFormData> = object({
   email: string()
     .email('Некорректный адрес почты')
     .required('Почта является обязательным полем'),

@@ -2,9 +2,9 @@ import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from '@/constants/routes'
 import LoginPage from '@/pages/LoginPage/LoginPage'
 import MainPage from '@/pages/MainPage/MainPage'
 import RegistrationPage from '@/pages/RegistrationPage/RegistrationPage'
-import RouteConfig from '@/types/RouteConfig'
+import { IRouteConfig } from '@/types/IRouteConfig'
 
-const routes: RouteConfig[] = [
+const routes: IRouteConfig[] = [
   {
     path: MAIN_ROUTE,
     component: MainPage,

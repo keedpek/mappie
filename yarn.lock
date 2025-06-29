@@ -1326,11 +1326,6 @@
   resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.6.tgz#60be8d21baab8c305132eb9cb912ed497852aadc"
   integrity sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==
 
-"@types/yandex-maps@^2.1.36":
-  version "2.1.36"
-  resolved "https://registry.yarnpkg.com/@types/yandex-maps/-/yandex-maps-2.1.36.tgz#5c611ff04e58f6cb6ce626dcc8a840cd218d4715"
-  integrity sha512-SxKOLe627WMFkC3jo7VelT29Uvbvg+LHRtD3cA6W0qWNuf7WQBv+lTaN+os1Vdum+EpglKBJbzjV8PJqwPZUQA==
-
 "@typescript-eslint/eslint-plugin@8.34.0":
   version "8.34.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.34.0.tgz#96c9f818782fe24cd5883a5d517ca1826d3fa9c2"
@@ -1501,16 +1496,6 @@
     "@rolldown/pluginutils" "1.0.0-beta.9"
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.17.0"
-
-"@yandex/ymaps3-clusterer@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@yandex/ymaps3-clusterer/-/ymaps3-clusterer-0.0.10.tgz#926d1fcc6e875e958a65e2b744751d99d887ae0c"
-  integrity sha512-cGnhnaR4SLb1edmviYafVcrCLQeQavcOWDmd9Y3tU5Y2Uq9S6ajNkpgkfvU8rmIDWhfSA+HJfktBpKtdi+kMWQ==
-
-"@yandex/ymaps3-types@^0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@yandex/ymaps3-types/-/ymaps3-types-0.0.27.tgz#56705d2d96e5c4bc70d70143fe988088a48d81b9"
-  integrity sha512-aQ2FNLXekN810mwfY7vfP8jh9pNu2AZA7N/W0T2ziSdaooWPvUFY+QWE7+PhXbJU5L8E4LKk5jW61m56rs9AJg==
 
 JSONStream@^1.3.5:
   version "1.3.5"

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-export default interface RouteConfig {
+export interface IRouteConfig {
   path: string
   component: FC
   privateRoute: boolean

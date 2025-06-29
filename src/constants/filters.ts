@@ -15,9 +15,9 @@ import other from '@/assets/filters/other.svg'
 import religion from '@/assets/filters/religion.svg'
 import shop from '@/assets/filters/shop.svg'
 import sport from '@/assets/filters/sport.svg'
-import Filter from '@/types/Filter'
+import { IFilter } from '@/types/IFilter'
 
-export const filters: Filter[] = [
+export const filters: IFilter[] = [
   {
     id: 'Nature',
     overpassCategories: [

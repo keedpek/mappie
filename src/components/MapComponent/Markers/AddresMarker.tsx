@@ -2,10 +2,10 @@ import { FC } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 
 import { addressMarkerIcon } from '@/constants/markerIcons'
-import AddressObj from '@/types/AddressObj'
+import { IAddressObj } from '@/types/IAddressObj'
 
 interface AddresMarkerProps {
-  place: AddressObj
+  place: IAddressObj
 }
 
 const AddresMarker: FC<AddresMarkerProps> = ({ place }) => {

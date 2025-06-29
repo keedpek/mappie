@@ -1,19 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { object, ref, string } from 'yup'
+import { object, ObjectSchema, ref, string } from 'yup'
 
 import { LOGIN_ROUTE } from '@/constants/routes'
 import { RegistrationFormData } from '@/types/authentication'
 import Loader from '@/UI/Loader/Loader'
-import { formatAuthError } from '@/utils/authErrorsParser'
+import { formatAuthError } from '@/utils/formatAuthError'
 import { useAuth } from '@/utils/hooks/useAuth'
 import { useToast } from '@/utils/hooks/useToast'
 
 import GoogleBtn from '../GoogleBtn/GoogleBtn'
 import style from './RegistrationForm.module.css'
 
-const logInSchema = object({
+const registrationSchema: ObjectSchema<RegistrationFormData> = object({
   email: string()
     .email('Некорректный адрес почты')
     .required('Почта является обязательным полем'),
@@ -29,12 +29,12 @@ const logInSchema = object({
 const RegistrationForm: FC = () => {
   const { register, handleSubmit, formState } = useForm<RegistrationFormData>({
     mode: 'onChange',
-    resolver: yupResolver(logInSchema),
+    resolver: yupResolver(registrationSchema),
   })
   const { errors } = formState
-  const { addToast } = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { registerUser } = useAuth()
+  const { addToast } = useToast()
 
   const handleRegistration = async (data: RegistrationFormData) => {
     try {

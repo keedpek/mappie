@@ -1,6 +1,6 @@
 import { LatLngExpression } from 'leaflet'
 
-export default interface PlaceObj {
+export interface IPlaceObj {
   id: string
   img: string
   title: string

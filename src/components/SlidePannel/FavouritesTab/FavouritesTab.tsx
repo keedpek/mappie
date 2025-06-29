@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 
 import { setFavouritePlaces } from '@/store/slices/favouritesSlice'
-import PlaceObj from '@/types/PlaceObj'
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { useAppDispatch, useAppSelector } from '@/utils/hooks/reduxHooks'
 import { getUserStoredFavourites } from '@/utils/localStorageHandler'
 
@@ -17,7 +17,7 @@ const FavouritesTab: FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    let stored: PlaceObj[] = []
+    let stored: IPlaceObj[] = []
     if (user) {
       stored = getUserStoredFavourites(user)
     }

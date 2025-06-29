@@ -1,9 +1,9 @@
 import { LatLngExpression } from 'leaflet'
 
-import AddressObj from '@/types/AddressObj'
-import PlaceObj from '@/types/PlaceObj'
+import { IAddressObj } from '@/types/IAddressObj'
+import { IOSRMRoute } from '@/types/IOSRMRoute'
+import { IPlaceObj } from '@/types/IPlaceObj'
 import { buildOverpassQuery } from '@/utils/buildOverpassQuery'
-import { coordsToFixed } from '@/utils/coordsToFixed'
 import { getCategoryByTags } from '@/utils/getCategoryByTags'
 
 import { $OSRM, $overpass, $yandexGeocoder } from '.'
@@ -13,7 +13,7 @@ export const searchPlaces = async (
   categories: string[],
   radius: number,
   center: LatLngExpression
-): Promise<PlaceObj[]> => {
+): Promise<IPlaceObj[]> => {
   const query = buildOverpassQuery(search, categories, radius, center)
 
   const response = await $overpass.post('/interpreter', query, {
@@ -23,7 +23,7 @@ export const searchPlaces = async (
   })
 
   const places = response.data.elements.map(
-    ({ id, tags, lat, lon }): PlaceObj => ({
+    ({ id, tags, lat, lon }): IPlaceObj => ({
       id: id + '',
       img:
         tags['image'] || tags['wikidata']
@@ -32,7 +32,7 @@ export const searchPlaces = async (
       title: tags.name || 'Неизвестно',
       description: tags.description || tags.addr?.street || 'Без описания',
       adress: tags.addr || 'Неизвестно',
-      coordinates: coordsToFixed([lat, lon]),
+      coordinates: [lat, lon],
       category: getCategoryByTags(tags),
     })
   )
@@ -43,7 +43,7 @@ export const searchByAddres = async (
   searchQuery: string,
   center: LatLngExpression,
   radius: number
-): Promise<AddressObj[]> => {
+): Promise<IAddressObj[]> => {
   let queryParams = `/?apikey=${import.meta.env.VITE_YMAP_API_KEY}&geocode=${searchQuery.split(' ').join('+')}`
   if (radius && Array.isArray(center)) {
     const spn = (radius * 2) / 1000 + ''
@@ -53,7 +53,7 @@ export const searchByAddres = async (
   queryParams += '&format=json'
   const response = await $yandexGeocoder.get(queryParams)
   const places = response.data.response.GeoObjectCollection.featureMember.map(
-    (place): AddressObj => ({
+    (place): IAddressObj => ({
       id: place.GeoObject.Point.pos,
       title: place.GeoObject.name,
       address:
@@ -70,7 +70,7 @@ export const searchByAddres = async (
 export const getOSRMRoute = async (
   from: LatLngExpression,
   to: LatLngExpression
-) => {
+): Promise<IOSRMRoute> => {
   if (Array.isArray(from) && Array.isArray(to)) {
     const [startLat, startLng] = from
     const [endLat, endLng] = to

@@ -1,4 +1,4 @@
-export default interface Filter {
+export interface IFilter {
   id: string
   overpassCategories: string[]
   title: string
